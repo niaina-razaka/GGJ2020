@@ -924,9 +924,11 @@ MonoBehaviour:
   btnNextStory: {fileID: 707340464}
   stories:
   - sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    text: KNOB
+    text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
   - sprite: {fileID: 21300000, guid: 9893bbe2a77a0d649bc4c1604db489a5, type: 3}
-    text: TRIANGLE
+    text: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+      ut aliquip ex ea commodo consequat.
 --- !u!1 &2145671959
 GameObject:
   m_ObjectHideFlags: 0

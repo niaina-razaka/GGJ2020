@@ -16,6 +16,7 @@ public class UIMainMenu : MonoBehaviour
     public Text lblStory;
     public Image imgStory;
     public Button btnNextStory;
+    public float storyDelay = 1.5f;
     public Story[] stories;
 
     private int storyIndex = 0;
@@ -47,12 +48,30 @@ public class UIMainMenu : MonoBehaviour
         }
     }
 
+    IEnumerator AnimateStory()
+    {
+        float t_delay = 0;
+        lblStory.text = stories[storyIndex].text;
+        imgStory.sprite = stories[storyIndex].sprite;
+        Color transparant = new Color(255, 255, 255, 0);
+        lblStory.color = transparant;
+        imgStory.color = transparant;
+        while (t_delay <= storyDelay)
+        {
+            t_delay += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            lblStory.color = Color32.Lerp(transparant, Color.white, t_delay/storyDelay);
+            imgStory.color = Color32.Lerp(transparant, Color.white, t_delay / storyDelay);
+        }
+        lblStory.color = Color.white;
+        imgStory.color = Color.white;
+    }
+
     private void LoadNextStory()
     {
         storyIndex++;
         storyIndex = Mathf.Clamp(storyIndex, 0, stories.Length-1);
-        lblStory.text = stories[storyIndex].text;
-        imgStory.sprite = stories[storyIndex].sprite;
+        StartCoroutine(AnimateStory());
     }
 
     [Serializable]
