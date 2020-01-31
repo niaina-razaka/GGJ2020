@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public enum Element
     {
-        
+        WATER,
+        FIRE,
+        WIND,
+        EARTH
+    }
+
+    [Header("Game Manager")]
+    public Element WorldElement = Element.WATER;
+
+    // Start is called before the first frame update
+    protected void Start()
+    {
+
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         
     }
