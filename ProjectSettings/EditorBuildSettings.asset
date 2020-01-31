@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GGJ2020/Scenes/GGJ_GAME.unity
     guid: f0e1977aab69150409ffb0bb8f7377a3
+  - enabled: 1
+    path: Assets/GGJ2020/Scenes/LevelDesign.unity
+    guid: 96cd55971ccbdf743984cfecf17a893c
   m_configObjects: {}
