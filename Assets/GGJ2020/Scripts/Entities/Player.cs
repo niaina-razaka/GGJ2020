@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-public class Player : MonoBehaviour
+[Serializable]
+public class Player
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int Life { get; set; } = 5;
+    public float Energy { get; set; } = 3;
+    public string name { get; private set; } = "Hafah";
 }
