@@ -377,6 +377,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447910129}
   m_CullTransparentMesh: 0
+--- !u!1 &518437943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 518437945}
+  - component: {fileID: 518437944}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &518437944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518437943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79a0c784303c16549be8cbc19638927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &518437945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518437943}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 622.7036, y: 295.379, z: -70.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &593034904
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,12 +959,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc425e983a1b1d48b457e32b0021940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialScene: GGJ_GAME
+  initialScene: LevelDesign
   btnPlay: {fileID: 25770552}
   progressBar: {fileID: 447910131}
   lblStory: {fileID: 706563252}
   imgStory: {fileID: 743537645}
   btnNextStory: {fileID: 707340464}
+  storyDelay: 1.5
   stories:
   - sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
