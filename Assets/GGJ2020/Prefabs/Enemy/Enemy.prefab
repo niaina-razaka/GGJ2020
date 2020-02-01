@@ -161,7 +161,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909923d1c06eec8439fe0d707de14e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -206,6 +206,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 943156344880395319, guid: e2a691e76ed49bc479f0d69747ebecec,
     type: 3}
   edible: 0
+  health: 15
+  damage: 5
   fireType: 0
   fireCooldown: 2
   readyToFire: 1
@@ -218,7 +220,7 @@ MonoBehaviour:
   groundCheckSize: {x: 1, y: 0.05}
   edgeCheckPosition: {x: 0.64, y: -0.57}
   edgeCheckLength: 1
-  jumpValues: {x: 2, y: 1}
+  jumpValues: {x: 2.56, y: 8}
   timeToWait: 1
   nextDestinationCheckYPosition: -0.6
   nextDestinationCheckLength: 2
