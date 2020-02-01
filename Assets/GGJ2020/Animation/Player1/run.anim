@@ -21,9 +21,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 7e7a36ef527e11e418770b16e5fafdf4, type: 3}
-    - time: 0.06666667
-      value: {fileID: 21300000, guid: 46d14801bc4d9b94c8ccf2e397782424, type: 3}
     - time: 0.15
+      value: {fileID: 21300000, guid: 46d14801bc4d9b94c8ccf2e397782424, type: 3}
+    - time: 0.3
       value: {fileID: 21300000, guid: f0cd589e16b67544996d81b26b623b7b, type: 3}
     attribute: m_Sprite
     path: Anticorps-T-profil-walk1
@@ -52,7 +52,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.16666667
+    m_StopTime: 0.3166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
