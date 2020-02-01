@@ -4,74 +4,77 @@ using UnityEngine;
 
 public class WorldCube : MonoBehaviour
 {
-    public GameObject WATER;
-    public GameObject FIRE;
-    public GameObject WIND;
-    public GameObject EARTH;
+    public GameObject BONE;
+    public GameObject BLOOD_VESSEL;
+    public GameObject BRAIN;
+    public GameObject HEART;
 
     private float duration = 0.25f;
 
-    public GameManager.Element Element {
+    public GameManager.HumanPart Element {
         get => _element;
         set
         {
             lastElement = _element;
             _element = value;
-            if(Application.isPlaying)
-                StartCoroutine(Animate());
+            /*BONE.SetActive(_element == GameManager.HumanPart.BONE);
+            BLOOD_VESSEL.SetActive(_element == GameManager.HumanPart.BLOOD_VESSEL);
+            BRAIN.SetActive(_element == GameManager.HumanPart.BRAIN);
+            HEART.SetActive(_element == GameManager.HumanPart.HEART);//*/
         }
     }
-    private GameManager.Element _element = GameManager.Element.EARTH;
-    private GameManager.Element lastElement;
+    private GameManager.HumanPart _element;
+    private GameManager.HumanPart lastElement;
 
     // Start is called before the first frame update
     void Start()
     {
-        Element = GameManager.Element.EARTH;
+        StartCoroutine(Animate());
     }
 
     IEnumerator Animate()
     {
-        WATER.SetActive(false);
-        FIRE.SetActive(false);
-        WIND.SetActive(false);
-        EARTH.SetActive(false);
+        //yield return new WaitForSeconds(1);
+        BONE.SetActive(false);
+        BLOOD_VESSEL.SetActive(false);
+        BRAIN.SetActive(false);
+        HEART.SetActive(false);
         switch (lastElement)
         {
-            case GameManager.Element.EARTH:
-                EARTH.SetActive(true);
-                Scale(EARTH, 1);
+            case GameManager.HumanPart.HEART:
+                HEART.SetActive(true);
+                Scale(HEART, 1);
                 break;
-            case GameManager.Element.FIRE:
-                FIRE.SetActive(true);
-                Scale(FIRE, 1);
+            case GameManager.HumanPart.BLOOD_VESSEL:
+                BLOOD_VESSEL.SetActive(true);
+                Scale(BLOOD_VESSEL, 1);
                 break;
-            case GameManager.Element.WATER:
-                WATER.SetActive(true);
-                Scale(WATER, 1);
+            case GameManager.HumanPart.BONE:
+                BONE.SetActive(true);
+                Scale(BONE, 1);
                 break;
-            case GameManager.Element.WIND:
-                WIND.SetActive(true);
-                Scale(WIND, 1);
+            case GameManager.HumanPart.BRAIN:
+                BRAIN.SetActive(true);
+                Scale(BRAIN, 1);
                 break;
         }
         switch (_element)
         {
-            case GameManager.Element.EARTH:
-                EARTH.SetActive(true);
-                Scale(EARTH, 0);
+            case GameManager.HumanPart.HEART:
+                HEART.SetActive(true);
+                Scale(HEART, 0);
                 break;
-            case GameManager.Element.FIRE:
-                FIRE.SetActive(true);
-                Scale(FIRE, 0);
+            case GameManager.HumanPart.BLOOD_VESSEL:
+                BLOOD_VESSEL.SetActive(true);
+                Scale(BLOOD_VESSEL, 0);
                 break;
-            case GameManager.Element.WATER:
-                WATER.SetActive(true);
-                Scale(WATER, 0);
+            case GameManager.HumanPart.BONE:
+                BONE.SetActive(true);
+                Scale(BONE, 0);
                 break;
-            case GameManager.Element.WIND:
-                WIND.SetActive(true);
-                Scale(WIND, 0);
+            case GameManager.HumanPart.BRAIN:
+                BRAIN.SetActive(true);
+                Scale(BRAIN, 0);
                 break;
         }
         float t = 0;
@@ -82,33 +85,33 @@ public class WorldCube : MonoBehaviour
             yield return new WaitForEndOfFrame();
             switch (lastElement)
             {
-                case GameManager.Element.EARTH:
-                    Scale(EARTH, 1 - (t / duration));
+                case GameManager.HumanPart.HEART:
+                    Scale(HEART, 1 - (t / duration));
                     break;
-                case GameManager.Element.FIRE:
-                    Scale(FIRE, 1 - (t / duration));
+                case GameManager.HumanPart.BLOOD_VESSEL:
+                    Scale(BLOOD_VESSEL, 1 - (t / duration));
                     break;
-                case GameManager.Element.WATER:
-                    Scale(WATER, 1 - (t / duration));
+                case GameManager.HumanPart.BONE:
+                    Scale(BONE, 1 - (t / duration));
                     break;
-                case GameManager.Element.WIND:
-                    Scale(WIND, 1 - (t / duration));
+                case GameManager.HumanPart.BRAIN:
+                    Scale(BRAIN, 1 - (t / duration));
                     break;
             }
         }
         switch (lastElement)
         {
-            case GameManager.Element.EARTH:
-                Scale(EARTH, 0);
+            case GameManager.HumanPart.HEART:
+                Scale(HEART, 0);
                 break;
-            case GameManager.Element.FIRE:
-                Scale(FIRE, 0);
+            case GameManager.HumanPart.BLOOD_VESSEL:
+                Scale(BLOOD_VESSEL, 0);
                 break;
-            case GameManager.Element.WATER:
-                Scale(WATER, 0);
+            case GameManager.HumanPart.BONE:
+                Scale(BONE, 0);
                 break;
-            case GameManager.Element.WIND:
-                Scale(WIND, 0);
+            case GameManager.HumanPart.BRAIN:
+                Scale(BRAIN, 0);
                 break;
         }
         t = 0;
@@ -119,33 +122,33 @@ public class WorldCube : MonoBehaviour
             yield return new WaitForEndOfFrame();
             switch (_element)
             {
-                case GameManager.Element.EARTH:
-                    Scale(EARTH, t / duration);
+                case GameManager.HumanPart.HEART:
+                    Scale(HEART, t / duration);
                     break;
-                case GameManager.Element.FIRE:
-                    Scale(FIRE, t / duration);
+                case GameManager.HumanPart.BLOOD_VESSEL:
+                    Scale(BLOOD_VESSEL, t / duration);
                     break;
-                case GameManager.Element.WATER:
-                    Scale(WATER, t / duration);
+                case GameManager.HumanPart.BONE:
+                    Scale(BONE, t / duration);
                     break;
-                case GameManager.Element.WIND:
-                    Scale(WIND, t / duration);
+                case GameManager.HumanPart.BRAIN:
+                    Scale(BRAIN, t / duration);
                     break;
             }
         }
         switch (_element)
         {
-            case GameManager.Element.EARTH:
-                Scale(EARTH, 1);
+            case GameManager.HumanPart.HEART:
+                Scale(HEART, 1);
                 break;
-            case GameManager.Element.FIRE:
-                Scale(FIRE, 1);
+            case GameManager.HumanPart.BLOOD_VESSEL:
+                Scale(BLOOD_VESSEL, 1);
                 break;
-            case GameManager.Element.WATER:
-                Scale(WATER, 1);
+            case GameManager.HumanPart.BONE:
+                Scale(BONE, 1);
                 break;
-            case GameManager.Element.WIND:
-                Scale(WIND, 1);
+            case GameManager.HumanPart.BRAIN:
+                Scale(BRAIN, 1);
                 break;
         }
     }
