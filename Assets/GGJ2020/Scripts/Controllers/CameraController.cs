@@ -4,15 +4,49 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Camera mainCam;
+    public float lenght = 0.1f;
+    public float shakeAmount = 0.1f;
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        if (mainCam == null)
+            mainCam = Camera.main;
+    }
+    
     void Update()
     {
-        
+        Shake();
+    }
+    public void Shake()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            print("ato");
+            StartCoroutine(BeginShake());
+        }
+            
+    }
+    private IEnumerator BeginShake()
+    {
+        float lenghtCoroutine = lenght;
+        lenghtCoroutine += Time.time;
+        while (Time.time <= lenghtCoroutine)
+        {
+            Vector3 oldPos = mainCam.transform.position;
+            Vector3 camPos = mainCam.transform.position;
+            float shakeX = Random.value * shakeAmount;
+            float shakeY = Random.value * shakeAmount;
+
+            camPos.x += shakeX;
+            camPos.y += shakeY;
+
+            mainCam.transform.position = camPos;
+
+            yield return new WaitForEndOfFrame();
+
+            mainCam.transform.localPosition = oldPos;
+        }
+
     }
 }
