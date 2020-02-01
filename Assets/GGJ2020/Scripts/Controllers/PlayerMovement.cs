@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
+    private float amplitude = 1;
+    [SerializeField]
     private float m_JumpForce = 400f;                           // Amount of force added when the player jumps.
     [Range(0, 1)]
     [SerializeField]
@@ -122,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
             // And then smoothing it out and applying it to the character
             m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+            //m_Rigidbody2D.velocity = m_Rigidbody2D.velocity * new Vector3(1, amplitude, 0);
 
             // If the input is moving the player right and the player is facing left...
             if (move > 0 && !m_FacingRight)

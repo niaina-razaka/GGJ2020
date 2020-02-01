@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -15,11 +17,20 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Manager")]
     public HumanPart humanPart = HumanPart.BONE;
+    public Player playerPrefab;
+    public Transform spawnPlayer;
+    public CinemachineVirtualCamera cinemachine;
+
+    private Player playerInstance;
 
     // Start is called before the first frame update
     protected void Start()
     {
-
+        //init player
+        playerInstance = Instantiate(playerPrefab);
+        playerInstance.name = "HAFA";
+        playerInstance.transform.position = spawnPlayer.position;
+        cinemachine.Follow = playerInstance.transform;
     }
 
     // Update is called once per frame
