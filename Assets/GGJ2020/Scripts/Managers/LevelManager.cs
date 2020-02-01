@@ -21,6 +21,7 @@ public class LevelManager : GameManager
     public List<WorldCube> cubes;
     
     public BlockMatrix blockMatrix = new BlockMatrix();
+    public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
 
     private Vector3 startPos;
     private float t_waitPopBlock = 1;
@@ -37,14 +38,15 @@ public class LevelManager : GameManager
             new int[]{ 0, 0, 0, 1, 0, 0 }
         };
 
-    private List<int[]>[] Blocks;
+    private List<List<int[]>> Blocks;
 
     new private void Start()
     {
         base.Start();
         cubes = FindObjectsOfType<WorldCube>().ToList();
         startPos = startBlock.transform.position;
-        Blocks = blockMatrix.Blocks;
+        Blocks = blockMatrix.Blocks.ToList();
+        Blocks.AddRange(blockMatrix0.Blocks);
     }
 
     new private void Update()
@@ -154,7 +156,7 @@ public class LevelManager : GameManager
 
     private void PopBlock()
     {
-        int random = Random.Range(0, Blocks.Length);
+        int random = Random.Range(0, Blocks.Count);
         List<int[]> matrix = Blocks[random];
         Vector3 pos = new Vector3(startPos.x, startPos.y, startPos.z);
         float elevation = 0;
