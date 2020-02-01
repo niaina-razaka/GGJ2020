@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
+    public Camera mainCam;
+    public float lenght = 0.1f;
+    public float shakeAmount = 0.1f;
     public float speed;
+    public bool shake = false;
     private Rigidbody2D rb2d;
 
     // Start is called before the first frame update
@@ -13,12 +16,43 @@ public class CameraController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         float x_axis = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(x_axis, 0);
         rb2d.velocity = movement * speed;
+        Shake();
+    }
+
+    public void Shake()
+    {
+        if (Input.GetKey(KeyCode.Space) && shake)
+        {
+            StartCoroutine(BeginShake());
+        }
+            
+    }
+    private IEnumerator BeginShake()
+    {
+        Vector3 oldPos = mainCam.transform.position;
+        Vector3 op = mainCam.transform.position;
+        float lenghtCoroutine = lenght;
+        lenghtCoroutine += Time.time;
+        while (Time.time <= lenghtCoroutine)
+        {
+            Vector3 camPos = mainCam.transform.position;
+            float shakeX = Random.value * shakeAmount;
+            float shakeY = Random.value * shakeAmount;
+
+            camPos.x += shakeX;
+            camPos.y += shakeY;
+
+            mainCam.transform.position = camPos;
+
+            yield return new WaitForEndOfFrame();
+            mainCam.transform.position = oldPos;
+        }
+        mainCam.transform.position = op;
     }
 }
