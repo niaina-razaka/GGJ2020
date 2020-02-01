@@ -503,21 +503,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6873077708472266160, guid: 126b571fa80cb524f91bc9a9951b454e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6873077708472266163, guid: 126b571fa80cb524f91bc9a9951b454e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 51
-      objectReference: {fileID: 0}
-    - target: {fileID: 6873077708472266163, guid: 126b571fa80cb524f91bc9a9951b454e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -82
-      objectReference: {fileID: 0}
     - target: {fileID: 6873077708986191649, guid: 126b571fa80cb524f91bc9a9951b454e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -627,21 +612,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UIPlayerHealth
-      objectReference: {fileID: 0}
-    - target: {fileID: 6873077708986191653, guid: 126b571fa80cb524f91bc9a9951b454e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6873077709425221548, guid: 126b571fa80cb524f91bc9a9951b454e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6873077709425221548, guid: 126b571fa80cb524f91bc9a9951b454e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126b571fa80cb524f91bc9a9951b454e, type: 3}
