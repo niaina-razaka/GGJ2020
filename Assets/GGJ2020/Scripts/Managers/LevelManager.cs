@@ -94,6 +94,7 @@ public class LevelManager : GameManager
         if (GUI.Button(new Rect(0, 110, 200, 25), "BOOS DEFEATED"))
         {
             BossDefeated();
+            //comment
         }
     }
 
