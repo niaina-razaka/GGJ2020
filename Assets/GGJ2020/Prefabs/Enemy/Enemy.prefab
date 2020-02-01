@@ -171,7 +171,7 @@ MonoBehaviour:
   maxPatrolDistance: 5
   environmentLayers:
     serializedVersion: 2
-    m_Bits: 16
+    m_Bits: 528
   groundCheckPosition: {x: 0, y: -0.65}
   groundCheckSize: {x: 1, y: 0.05}
   edgeCheckPosition: {x: 0.64, y: -0.57}

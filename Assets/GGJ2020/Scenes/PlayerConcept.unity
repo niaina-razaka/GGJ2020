@@ -153,6 +153,7 @@ MonoBehaviour:
   startTmeBtwSpawn: 1
   enemies:
   - {fileID: 1082335632792445146, guid: 79af381615ccec14483107b17045cef7, type: 3}
+  - {fileID: 4667876226404004646, guid: 1dcc23eaafb3b4744a49532bf272f55a, type: 3}
 --- !u!4 &84560947
 Transform:
   m_ObjectHideFlags: 0
