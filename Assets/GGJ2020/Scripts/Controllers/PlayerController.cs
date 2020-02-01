@@ -39,4 +39,5 @@ public class PlayerController : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
+   
 }
