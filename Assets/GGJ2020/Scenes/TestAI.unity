@@ -544,7 +544,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909923d1c06eec8439fe0d707de14e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  detectionRadius: 2.84
+  target: {fileID: 0}
+  isFacingRight: 0
   moveSpeed: 3
+  maxPatrolDistance: 5
   environmentLayers:
     serializedVersion: 2
     m_Bits: 16
@@ -552,6 +560,10 @@ MonoBehaviour:
   groundCheckSize: {x: 1, y: 0.05}
   edgeCheckPosition: {x: 0.64, y: -0.57}
   edgeCheckLength: 1
+  jumpValues: {x: 2, y: 1}
+  timeToWait: 1
+  nextDestinationCheckYPosition: -0.6
+  nextDestinationCheckLength: 2
 --- !u!50 &1251960775
 Rigidbody2D:
   serializedVersion: 4
@@ -657,7 +669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251960773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.12, y: 2.56, z: 0}
+  m_LocalPosition: {x: -1.28, y: 2.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
