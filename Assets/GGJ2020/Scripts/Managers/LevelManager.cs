@@ -18,6 +18,8 @@ public class LevelManager : GameManager
     public Transform startBlock;
     public Transform endBlock;
     public WorldCube prefabBlock;
+    public WorldCube prefabBlockInvisible;
+    public WorldCube prefabBlockFake;
     public List<WorldCube> cubes;
 
     public BlockMatrix blockMatrix = new BlockMatrix();
@@ -178,6 +180,30 @@ public class LevelManager : GameManager
                     WorldCube clone = Instantiate(prefabBlock);
                     clone.Element = humanPart;
                     clone.name = humanPart.ToString();
+                    clone.transform.localScale = Vector3.one;
+                    clone.transform.parent = parentBlocks;
+                    clone.transform.position = pos;
+                    cubes.Add(clone);
+                    pos += new Vector3(blockSpacing, 0, 0);
+                }
+                //block invisible
+                else if (matrix[i][j] == -1)
+                {
+                    WorldCube clone = Instantiate(prefabBlockInvisible);
+                    clone.Element = humanPart;
+                    clone.name = humanPart.ToString() + "_INVISIBLE";
+                    clone.transform.localScale = Vector3.one;
+                    clone.transform.parent = parentBlocks;
+                    clone.transform.position = pos;
+                    cubes.Add(clone);
+                    pos += new Vector3(blockSpacing, 0, 0);
+                }
+                //block fake
+                else if (matrix[i][j] == -2)
+                {
+                    WorldCube clone = Instantiate(prefabBlockFake);
+                    clone.Element = humanPart;
+                    clone.name = humanPart.ToString() + "_FAKE";
                     clone.transform.localScale = Vector3.one;
                     clone.transform.parent = parentBlocks;
                     clone.transform.position = pos;
