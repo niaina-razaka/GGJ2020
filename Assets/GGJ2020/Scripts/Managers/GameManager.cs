@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            //click action
+        }
     }
 }
