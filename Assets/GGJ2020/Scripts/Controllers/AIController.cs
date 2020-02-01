@@ -15,15 +15,6 @@ public class AIController : AI
     // 1 if going right, -1 if going left
     int direction = 1;
 
-    // Spawning point
-    Vector2 spawningPoint;
-
-    // Maximum patrolling distance from spawning point
-    public float maxPatrolDistance = 5;
-
-    // If object has just reached max distance
-    bool maxDistanceReached = false;
-
     [Space(10)]
     [Header("Ground Check Settings")]
     // LayerMask for environment collisions check
@@ -42,8 +33,15 @@ public class AIController : AI
     {
         //base.Start();
         rb = GetComponent<Rigidbody2D>();
-        direction = (isFacingRight) ? 1 : -1;
         gravityValue = Mathf.Abs(Physics2D.gravity.y);
+        if (isFacingRight)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = -1;
+        }
 
         if(type == Type.FlyingPatrol)
         {
@@ -71,6 +69,8 @@ public class AIController : AI
     }
     void Update()
     {
+        base.Update();
+
         Vector2 position = transform.position;
         // If object is a ground unit
         if(type != Type.FlyingPatrol)
@@ -82,8 +82,15 @@ public class AIController : AI
                 if (grounded)
                 {
                     CheckMaxDistanceReached();
-                    CheckEdge(position);
-                    rb.velocity = new Vector2(direction * moveSpeed, 0);
+                    if (target != null)
+                    {
+                        MoveTo(target.position, true);
+                    }
+                    else
+                    {
+                        CheckEdge(position);
+                        rb.velocity = new Vector2(direction * moveSpeed, 0);
+                    }
                 }
             }
             // If jump patrol
@@ -91,6 +98,8 @@ public class AIController : AI
             {
                 if (grounded && previousGroundCheck != grounded)
                 {
+                    if (target)
+                        JumpTo(target.transform.position);
                     checkNextDestination();
                     readyToJump = true;
                     jumping = false;
@@ -109,15 +118,55 @@ public class AIController : AI
         }
         else if(type == Type.FlyingPatrol)
         {
+            if (isFiring)
+            {
+                return;
+            }
             CheckMaxDistanceReached();
-            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            if (target != null)
+            {
+                MoveTo(target.position, false);
+            }
+            else
+            {
+                transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            }
+        }
+    }
+
+    // For moving towards/above the player (uniform movements only)
+    void MoveTo(Vector2 destination, bool withPhysics)
+    {
+        if(Vector2.Distance(transform.position, new Vector2(destination.x, transform.position.y)) > .05f){
+            alignedWithTarget = false;
+            if((destination.x - transform.position.x > 0 && !isFacingRight) || (destination.x - transform.position.x < 0 && isFacingRight))
+            {
+                ChangeDirection();
+            }
+            if(withPhysics)
+                rb.velocity = new Vector2(direction * moveSpeed, 0);
+            else
+                transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            alignedWithTarget = true;
+        }
+    }
+
+    // For moving towards/above the player (jump movements only)
+    void JumpTo(Vector2 destination)
+    {
+        if ((destination.x - transform.position.x > 0 && !isFacingRight) || (destination.x - transform.position.x < 0 && isFacingRight))
+        {
+            ChangeDirection();
         }
     }
 
     // Checks if max patrol distance is reached (works on uniform movement types only)
     void CheckMaxDistanceReached()
     {
-        if (Vector2.Distance(transform.position, spawningPoint) > maxPatrolDistance && !maxDistanceReached)
+        if (Mathf.Abs(transform.position.x - spawningPoint.x) >= maxPatrolDistance && !maxDistanceReached)
         {
             ChangeDirection();
             maxDistanceReached = true;
@@ -158,7 +207,7 @@ public class AIController : AI
 
     }
 
-    // Ground patrol AI
+    // Ground patrol AI movements
     #region
 
     // Edge check parameters
@@ -177,7 +226,7 @@ public class AIController : AI
     }
     #endregion
 
-    // Ground jumping AI
+    // Ground jumping AI movements
     #region
 
     [Header("Ground Jumping Settings")]
@@ -217,7 +266,7 @@ public class AIController : AI
 
     void checkNextDestination()
     {
-        if(Vector2.Distance(spawningPoint, (Vector2)transform.position + Vector2.right * jumpValues.x) > maxPatrolDistance)
+        if(Mathf.Abs((spawningPoint.x - (transform.position.x + jumpValues.x * direction))) > maxPatrolDistance)
         {
             ChangeDirection();
         }
@@ -229,7 +278,7 @@ public class AIController : AI
     }
     #endregion
 
-    // Flying AI
+    // Flying AI movements
     #region
     #endregion
 }
