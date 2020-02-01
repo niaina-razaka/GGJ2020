@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class BlockMatrix
+public class BlockMatrix0
 {
     public List<int[]>[] Blocks { get; set; } = new List<int[]>[]
     {
