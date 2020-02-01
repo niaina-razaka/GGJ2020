@@ -42,6 +42,10 @@ public class AI : MonoBehaviour
     // Indicates if object is edible or not
     public bool edible;
 
+    [Header("Combat Settings")]
+    public int health = 15;
+    public int damage = 5;
+
     protected void Update()
     {
         target = null;
@@ -147,7 +151,7 @@ public class AI : MonoBehaviour
         isFiring = true;
         System.Random r = new System.Random();
         float angle = Mathf.PI / 9;
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 30; i++)
         {
             Rigidbody2D projectile = GameObject.Instantiate(projectilePrefab, mayhemProjectileSpawnPoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
             projectile.bodyType = RigidbodyType2D.Dynamic;
@@ -160,6 +164,15 @@ public class AI : MonoBehaviour
         }
         isFiring = false;
         StartCoroutine("StartFireCooldown");
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

@@ -16,16 +16,21 @@ public class BossProjectile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Well");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Life -= 1;
+            Destroy(gameObject);
+
         }
-        if(other.tag == gameObject.tag)
+        if (other.tag == gameObject.tag)
         {
+            GameObject.FindGameObjectWithTag("Boss").GetComponent<BossNiv1>().TakeDamage();
             Destroy(other.gameObject);
             Destroy(gameObject);
 
         }
-        else
+        else if(!other.CompareTag("Player"))
         {
             Debug.Log("Are you OK");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Life -= 1;
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
