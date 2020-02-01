@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     public float lenght = 0.1f;
     public float shakeAmount = 0.1f;
     public float speed;
+    public bool shake = false;
+    public bool manualControl = false;
     private Rigidbody2D rb2d;
 
     // Start is called before the first frame update
@@ -18,26 +20,31 @@ public class CameraController : MonoBehaviour
     
     void Update()
     {
-        float x_axis = Input.GetAxis("Horizontal");
-        Vector2 movement = new Vector2(x_axis, 0);
-        rb2d.velocity = movement * speed;
+        if (manualControl)
+        {
+            float x_axis = Input.GetAxis("Horizontal");
+            Vector2 movement = new Vector2(x_axis, 0);
+            rb2d.velocity = movement * speed;
+            Shake();
+        }
     }
+
     public void Shake()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && shake)
         {
-            print("ato");
             StartCoroutine(BeginShake());
         }
             
     }
     private IEnumerator BeginShake()
     {
+        Vector3 oldPos = mainCam.transform.position;
+        Vector3 op = mainCam.transform.position;
         float lenghtCoroutine = lenght;
         lenghtCoroutine += Time.time;
         while (Time.time <= lenghtCoroutine)
         {
-            Vector3 oldPos = mainCam.transform.position;
             Vector3 camPos = mainCam.transform.position;
             float shakeX = Random.value * shakeAmount;
             float shakeY = Random.value * shakeAmount;
@@ -48,8 +55,8 @@ public class CameraController : MonoBehaviour
             mainCam.transform.position = camPos;
 
             yield return new WaitForEndOfFrame();
-
-            mainCam.transform.localPosition = oldPos;
+            mainCam.transform.position = oldPos;
         }
+        mainCam.transform.position = op;
     }
 }

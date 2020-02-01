@@ -27,15 +27,15 @@ public class LevelManager : GameManager
     private float t_waitPopBlock = 1;
     private List<int[]> wallEndLevel = new List<int[]>()
         {
-            new int[]{ 1, 1, 1, 1, 1, 1 },
-            new int[]{ 0, 1, 1, 1, 0, 0 },
-            new int[]{ 0, 0, 1, 1, 0, 0 },
-            new int[]{ 0, 0, 0, 1, 0, 0 },
-            new int[]{ 0, 0, 0, 0, 0, 0 },
-            new int[]{ 0, 0, 0, 1, 0, 0 },
-            new int[]{ 0, 0, 0, 1, 0, 0 },
-            new int[]{ 0, 0, 0, 1, 0, 0 },
-            new int[]{ 0, 0, 0, 1, 0, 0 }
+            new int[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            new int[]{ 0, 1, 1, 1, 0, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 1, 1, 0, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 0, 1, 1, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 0, 1, 1, 0, 0, 0, 0 },
+            new int[]{ 0, 0, 0, 1, 1, 0, 0, 0, 0 }
         };
 
     private List<int[]>[] BLOCKS = new List<int[]>[]
@@ -60,13 +60,16 @@ public class LevelManager : GameManager
         base.Start();
         blocks = FindObjectsOfType<WorldCube>().ToList();
         startPos = startBlock.transform.position;
+        Blocks = blockMatrix.Blocks.ToList();
+        Blocks.AddRange(blockMatrix0.Blocks);
+        BossDefeated();
     }
 
     new private void Update()
     {
         base.Update();
         t_waitPopBlock -= Time.deltaTime;
-        if (t_waitPopBlock <= 0)
+        //if (t_waitPopBlock <= 0)
         {
             GenerateLevel();
             t_waitPopBlock = 0;
@@ -106,7 +109,11 @@ public class LevelManager : GameManager
         from.z = 0;
         Vector3 to = endBlock.transform.position;
         to.z = 0;
-        Gizmos.DrawLine(from, to);
+        float k = 0.2f;
+        for(int i = 0; i <= 6; i++)
+        {
+            Gizmos.DrawLine(from + new Vector3(0, i*k), to + new Vector3(0, i * k));
+        }
     }
 
     private void GenerateLevel()

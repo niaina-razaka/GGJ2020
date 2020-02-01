@@ -8,7 +8,6 @@ public class BossNiv1 : MonoBehaviour
     public Slider healthBar;
     private int life=10;
     private int maxHealth;
-    public int Life { get => life; set => life = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -29,5 +28,9 @@ public class BossNiv1 : MonoBehaviour
             life--;
         }
             
+    }
+    public void TakeDamage()
+    {
+        this.life -= 1;
     }
 }
