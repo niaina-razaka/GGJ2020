@@ -22,14 +22,14 @@ public class PlayerController : Player
             jump = true;
         }
 
-        if (Input.GetButtonDown("Crouch"))
-        {
-            crouch = true;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            crouch = false;
-        }
+        //if (Input.GetButtonDown("Crouch"))
+        //{
+        //    crouch = true;
+        //}
+        //else if (Input.GetButtonUp("Crouch"))
+        //{
+        //    crouch = false;
+        //}
 
     }
 
@@ -39,4 +39,5 @@ public class PlayerController : Player
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
+   
 }

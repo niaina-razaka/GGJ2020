@@ -8,6 +8,11 @@ TagManager:
   - Platform
   - Boss
   - Weapon
+  - Square
+  - Triangle
+  - Circle
+  - Collectible
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX
@@ -18,7 +23,7 @@ TagManager:
   - 
   - 
   - Player
-  - 
+  - Environment
   - 
   - 
   - 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+<<<<<<< HEAD
     public Camera mainCam;
     public float lenght = 0.1f;
     public float shakeAmount = 0.1f;
@@ -12,10 +13,21 @@ public class CameraController : MonoBehaviour
     {
         if (mainCam == null)
             mainCam = Camera.main;
+=======
+
+    public float speed;
+    private Rigidbody2D rb2d;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+>>>>>>> master
     }
     
     void Update()
     {
+<<<<<<< HEAD
         Shake();
     }
     public void Shake()
@@ -48,5 +60,10 @@ public class CameraController : MonoBehaviour
             mainCam.transform.localPosition = oldPos;
         }
 
+=======
+        float x_axis = Input.GetAxis("Horizontal");
+        Vector2 movement = new Vector2(x_axis, 0);
+        rb2d.velocity = movement * speed;
+>>>>>>> master
     }
 }
