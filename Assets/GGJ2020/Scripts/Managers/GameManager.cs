@@ -5,16 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public enum Element
+    public enum HumanPart
     {
-        WATER,
-        FIRE,
-        WIND,
-        EARTH
+        BONE,
+        BLOOD_VESSEL,
+        BRAIN,
+        HEART
     }
 
     [Header("Game Manager")]
-    public Element WorldElement = Element.WATER;
+    public HumanPart humanPart = HumanPart.BONE;
 
     // Start is called before the first frame update
     protected void Start()
