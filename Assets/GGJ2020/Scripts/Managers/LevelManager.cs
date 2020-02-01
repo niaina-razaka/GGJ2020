@@ -18,10 +18,10 @@ public class LevelManager : GameManager
     public Transform startBlock;
     public Transform endBlock;
     public WorldCube prefabBlock;
-    public List<WorldCube> cubes;
-    
+    public List<WorldCube> blocks;
+
+    [SerializeField]
     public BlockMatrix blockMatrix = new BlockMatrix();
-    public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
 
     private Vector3 startPos;
     private float t_waitPopBlock = 1;
@@ -38,15 +38,28 @@ public class LevelManager : GameManager
             new int[]{ 0, 0, 0, 1, 0, 0 }
         };
 
-    private List<List<int[]>> Blocks;
+    private List<int[]>[] BLOCKS = new List<int[]>[]
+    {
+        new List<int[]>()
+        {
+            new int[]{ 1, 1, 1, 1 },
+            new int[]{ 0, 1, 1, 0 },
+            new int[]{ 0, 0, 1, 0 }
+        },
+        new List<int[]>()
+        {
+            new int[]{ 1, 1, 1, 1, 1 },
+            new int[]{ 0, 1, 1, 0, 0 },
+            new int[]{ 0, 0, 0, 0, 0 },
+            new int[]{ 0, 1, 1, 1, 0 }
+        }
+    };
 
     new private void Start()
     {
         base.Start();
-        cubes = FindObjectsOfType<WorldCube>().ToList();
+        blocks = FindObjectsOfType<WorldCube>().ToList();
         startPos = startBlock.transform.position;
-        Blocks = blockMatrix.Blocks.ToList();
-        Blocks.AddRange(blockMatrix0.Blocks);
     }
 
     new private void Update()
@@ -100,24 +113,24 @@ public class LevelManager : GameManager
     {
         bool mustPopBlock = false;
         //destroy unranged blocks
-        foreach (WorldCube c in cubes)
+        foreach (WorldCube c in blocks)
         {
             float distance = Vector2.Distance(c.transform.position, endBlock.position);
             if (distance >= blockDistanceDestroyer)
             {
-                cubes.Remove(c);
+                blocks.Remove(c);
                 DestroyImmediate(c.gameObject);
                 break;
             }
         }
         //check mindistance to popup
-        if(cubes.Count == 0)
+        if(blocks.Count == 0)
         {
             mustPopBlock = true;
         }
         else
         {
-            WorldCube rightBlock = cubes.OrderBy(x => x.transform.position.x).Last();
+            WorldCube rightBlock = blocks.OrderBy(x => x.transform.position.x).Last();
             if (Vector2.Distance(rightBlock.transform.position, endBlock.position) >= 1 && 
                 rightBlock.transform.position.x <= endBlock.position.x)
             {
@@ -134,7 +147,7 @@ public class LevelManager : GameManager
                 clone.transform.localScale = Vector3.one;
                 clone.transform.parent = parentBlocks;
                 clone.transform.position = startPos;
-                cubes.Add(clone);
+                blocks.Add(clone);
                 if (Random.value >= highBlockPercent)
                 {
                     WorldCube u_clone = Instantiate(prefabBlock);
@@ -143,7 +156,7 @@ public class LevelManager : GameManager
                     u_clone.transform.localScale = Vector3.one;
                     u_clone.transform.parent = parentBlocks;
                     u_clone.transform.position = new Vector3(startPos.x, startPos.y + blockSpacing, 0);
-                    cubes.Add(u_clone);
+                    blocks.Add(u_clone);
                 }
                 startPos += new Vector3(blockSpacing, 0, 0);
             }
@@ -156,8 +169,8 @@ public class LevelManager : GameManager
 
     private void PopBlock()
     {
-        int random = Random.Range(0, Blocks.Count);
-        List<int[]> matrix = Blocks[random];
+        int random = Random.Range(0, BLOCKS.Length);
+        List<int[]> matrix = BLOCKS[random];
         Vector3 pos = new Vector3(startPos.x, startPos.y, startPos.z);
         float elevation = 0;
         for (int i = 0; i < matrix.Count; i++)
@@ -176,7 +189,7 @@ public class LevelManager : GameManager
                     clone.transform.localScale = Vector3.one;
                     clone.transform.parent = parentBlocks;
                     clone.transform.position = pos;
-                    cubes.Add(clone);
+                    blocks.Add(clone);
                     pos += new Vector3(blockSpacing, 0, 0);
                 }
             }
@@ -206,7 +219,7 @@ public class LevelManager : GameManager
                     clone.transform.localScale = Vector3.one;
                     clone.transform.parent = parentBlocks;
                     clone.transform.position = pos;
-                    cubes.Add(clone);
+                    blocks.Add(clone);
                     pos += new Vector3(blockSpacing, 0, 0);
                 }
             }
@@ -225,10 +238,10 @@ public class LevelManager : GameManager
     IEnumerator DynamicAnimateCubes(HumanPart element)
     {
         int count = 0;
-        while (count < cubes.Count)
+        while (count < blocks.Count)
         {
             yield return new WaitForSeconds(animationDelay);
-            cubes[count].Element = element;
+            blocks[count].Element = element;
             count++;
         }
     }
