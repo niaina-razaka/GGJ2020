@@ -91,7 +91,7 @@ public class LevelManager : GameManager
         {
             ChangeElement(HumanPart.HEART);
         }
-        if (GUI.Button(new Rect(0, 75, 200, 25), "BOOS DEFEATED"))
+        if (GUI.Button(new Rect(0, 110, 200, 25), "BOOS DEFEATED"))
         {
             BossDefeated();
         }
