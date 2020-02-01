@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38defad4094dc6b478582f8bdcd4c2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTmeBtwSpawn: 1
+  startTmeBtwSpawn: 5
   enemies:
   - {fileID: 1082335632792445146, guid: 79af381615ccec14483107b17045cef7, type: 3}
   - {fileID: 4667876226404004646, guid: 1dcc23eaafb3b4744a49532bf272f55a, type: 3}
@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84560945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.11, y: 2.02, z: -0.75}
+  m_LocalPosition: {x: -0.1, y: 2.02, z: -0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 239814211}
   - component: {fileID: 239814210}
   - component: {fileID: 239814209}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -700,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 4980665009917123296, guid: 16710415f86ddc849858f9dd7fbe2e20,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.89
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 4980665009917123296, guid: 16710415f86ddc849858f9dd7fbe2e20,
         type: 3}
