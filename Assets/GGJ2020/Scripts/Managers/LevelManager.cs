@@ -8,7 +8,7 @@ public class LevelManager : GameManager
     [Header("Level Manager")]
     public float animationDelay = 0.15f;
     public float blockSpacing = 1.28f;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float highBlockPercent = 0.85f;
     public int blockDistanceDestroyer = 50;
     public bool linearPopBlock = true;
@@ -18,10 +18,10 @@ public class LevelManager : GameManager
     public Transform startBlock;
     public Transform endBlock;
     public WorldCube prefabBlock;
-    public List<WorldCube> blocks;
+    public List<WorldCube> cubes;
 
-    [SerializeField]
     public BlockMatrix blockMatrix = new BlockMatrix();
+    public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
 
     private Vector3 startPos;
     private float t_waitPopBlock = 1;
@@ -38,27 +38,12 @@ public class LevelManager : GameManager
             new int[]{ 0, 0, 0, 1, 1, 0, 0, 0, 0 }
         };
 
-    private List<int[]>[] BLOCKS = new List<int[]>[]
-    {
-        new List<int[]>()
-        {
-            new int[]{ 1, 1, 1, 1 },
-            new int[]{ 0, 1, 1, 0 },
-            new int[]{ 0, 0, 1, 0 }
-        },
-        new List<int[]>()
-        {
-            new int[]{ 1, 1, 1, 1, 1 },
-            new int[]{ 0, 1, 1, 0, 0 },
-            new int[]{ 0, 0, 0, 0, 0 },
-            new int[]{ 0, 1, 1, 1, 0 }
-        }
-    };
+    private List<List<int[]>> Blocks;
 
     new private void Start()
     {
         base.Start();
-        blocks = FindObjectsOfType<WorldCube>().ToList();
+        cubes = FindObjectsOfType<WorldCube>().ToList();
         startPos = startBlock.transform.position;
         Blocks = blockMatrix.Blocks.ToList();
         Blocks.AddRange(blockMatrix0.Blocks);
@@ -110,9 +95,9 @@ public class LevelManager : GameManager
         Vector3 to = endBlock.transform.position;
         to.z = 0;
         float k = 0.2f;
-        for(int i = 0; i <= 6; i++)
+        for (int i = 0; i <= 6; i++)
         {
-            Gizmos.DrawLine(from + new Vector3(0, i*k), to + new Vector3(0, i * k));
+            Gizmos.DrawLine(from + new Vector3(0, i * k), to + new Vector3(0, i * k));
         }
     }
 
@@ -120,25 +105,25 @@ public class LevelManager : GameManager
     {
         bool mustPopBlock = false;
         //destroy unranged blocks
-        foreach (WorldCube c in blocks)
+        foreach (WorldCube c in cubes)
         {
             float distance = Vector2.Distance(c.transform.position, endBlock.position);
             if (distance >= blockDistanceDestroyer)
             {
-                blocks.Remove(c);
+                cubes.Remove(c);
                 DestroyImmediate(c.gameObject);
                 break;
             }
         }
         //check mindistance to popup
-        if(blocks.Count == 0)
+        if (cubes.Count == 0)
         {
             mustPopBlock = true;
         }
         else
         {
-            WorldCube rightBlock = blocks.OrderBy(x => x.transform.position.x).Last();
-            if (Vector2.Distance(rightBlock.transform.position, endBlock.position) >= 1 && 
+            WorldCube rightBlock = cubes.OrderBy(x => x.transform.position.x).Last();
+            if (Vector2.Distance(rightBlock.transform.position, endBlock.position) >= 1 &&
                 rightBlock.transform.position.x <= endBlock.position.x)
             {
                 mustPopBlock = true;
@@ -154,7 +139,7 @@ public class LevelManager : GameManager
                 clone.transform.localScale = Vector3.one;
                 clone.transform.parent = parentBlocks;
                 clone.transform.position = startPos;
-                blocks.Add(clone);
+                cubes.Add(clone);
                 if (Random.value >= highBlockPercent)
                 {
                     WorldCube u_clone = Instantiate(prefabBlock);
@@ -163,7 +148,7 @@ public class LevelManager : GameManager
                     u_clone.transform.localScale = Vector3.one;
                     u_clone.transform.parent = parentBlocks;
                     u_clone.transform.position = new Vector3(startPos.x, startPos.y + blockSpacing, 0);
-                    blocks.Add(u_clone);
+                    cubes.Add(u_clone);
                 }
                 startPos += new Vector3(blockSpacing, 0, 0);
             }
@@ -176,8 +161,8 @@ public class LevelManager : GameManager
 
     private void PopBlock()
     {
-        int random = Random.Range(0, BLOCKS.Length);
-        List<int[]> matrix = BLOCKS[random];
+        int random = Random.Range(0, Blocks.Count);
+        List<int[]> matrix = Blocks[random];
         Vector3 pos = new Vector3(startPos.x, startPos.y, startPos.z);
         float elevation = 0;
         for (int i = 0; i < matrix.Count; i++)
@@ -196,7 +181,7 @@ public class LevelManager : GameManager
                     clone.transform.localScale = Vector3.one;
                     clone.transform.parent = parentBlocks;
                     clone.transform.position = pos;
-                    blocks.Add(clone);
+                    cubes.Add(clone);
                     pos += new Vector3(blockSpacing, 0, 0);
                 }
             }
@@ -210,11 +195,11 @@ public class LevelManager : GameManager
     {
         Vector3 pos = new Vector3(startPos.x, startPos.y, startPos.z);
         float elevation = 0;
-        for(int i = 0; i < wallEndLevel.Count; i++)
+        for (int i = 0; i < wallEndLevel.Count; i++)
         {
-            for(int j=0; j < wallEndLevel[i].Length; j++)
+            for (int j = 0; j < wallEndLevel[i].Length; j++)
             {
-                if(wallEndLevel[i][j] == 0)
+                if (wallEndLevel[i][j] == 0)
                 {
                     pos += new Vector3(blockSpacing, 0, 0);
                 }
@@ -226,7 +211,7 @@ public class LevelManager : GameManager
                     clone.transform.localScale = Vector3.one;
                     clone.transform.parent = parentBlocks;
                     clone.transform.position = pos;
-                    blocks.Add(clone);
+                    cubes.Add(clone);
                     pos += new Vector3(blockSpacing, 0, 0);
                 }
             }
@@ -245,10 +230,10 @@ public class LevelManager : GameManager
     IEnumerator DynamicAnimateCubes(HumanPart element)
     {
         int count = 0;
-        while (count < blocks.Count)
+        while (count < cubes.Count)
         {
             yield return new WaitForSeconds(animationDelay);
-            blocks[count].Element = element;
+            cubes[count].Element = element;
             count++;
         }
     }
