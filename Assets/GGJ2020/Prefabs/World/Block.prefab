@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2215765674332728437}
   - component: {fileID: 2215765674332728436}
   m_Layer: 0
-  m_Name: FIRE
+  m_Name: BLOOD_VESSEL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2215765674458208536}
   - component: {fileID: 2215765674458208539}
   m_Layer: 0
-  m_Name: WATER
+  m_Name: BONE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c1b1cd2fdfc28ce438103b1f59cd6489, type: 3}
-  m_Color: {r: 0.20060521, g: 0.82794106, b: 0.8679245, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 2215765674634643837}
   - component: {fileID: 2215765674634643836}
   m_Layer: 0
-  m_Name: EARTH
+  m_Name: BRAIN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,7 +191,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2215765675251405479}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2215765674634643836
 SpriteRenderer:
@@ -233,7 +233,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c1b1cd2fdfc28ce438103b1f59cd6489, type: 3}
-  m_Color: {r: 0.7794118, g: 0.55902636, b: 0.3897059, a: 1}
+  m_Color: {r: 0.9056604, g: 0.6707013, b: 0.75680083, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 2215765674975212190}
   - component: {fileID: 2215765674975212185}
   m_Layer: 0
-  m_Name: WIND
+  m_Name: HEART
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2215765675251405479}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2215765674975212185
 SpriteRenderer:
@@ -314,7 +314,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c1b1cd2fdfc28ce438103b1f59cd6489, type: 3}
-  m_Color: {r: 0.9117647, g: 0.9117647, b: 0.9117647, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -356,8 +356,8 @@ Transform:
   m_Children:
   - {fileID: 2215765674458208536}
   - {fileID: 2215765674332728437}
-  - {fileID: 2215765674975212190}
   - {fileID: 2215765674634643837}
+  - {fileID: 2215765674975212190}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b005cbb9450b084408b2ddeeef20e969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WATER: {fileID: 2215765674458208537}
-  FIRE: {fileID: 2215765674332728442}
-  WIND: {fileID: 2215765674975212191}
-  EARTH: {fileID: 2215765674634643714}
+  BONE: {fileID: 2215765674458208537}
+  BLOOD_VESSEL: {fileID: 2215765674332728442}
+  BRAIN: {fileID: 2215765674634643714}
+  HEART: {fileID: 2215765674975212191}
