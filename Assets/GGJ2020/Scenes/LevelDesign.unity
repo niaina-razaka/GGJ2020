@@ -307,9 +307,7 @@ MonoBehaviour:
   endBlock: {fileID: 631588777}
   prefabBlock: {fileID: 2215765675251405477, guid: bf57fe365cc3e764f89c298c84761834,
     type: 3}
-  blocks: []
-  blockMatrix:
-    test: 
+  cubes: []
 --- !u!4 &1476850831
 Transform:
   m_ObjectHideFlags: 0
