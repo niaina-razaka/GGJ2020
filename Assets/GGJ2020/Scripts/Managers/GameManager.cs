@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Transform spawnPlayer;
     public CinemachineVirtualCamera cinemachine;
 
-    private Player playerInstance;
+    protected Player playerInstance;
 
     // Start is called before the first frame update
     protected void Start()
@@ -40,5 +40,10 @@ public class GameManager : MonoBehaviour
         {
             //click action
         }
+    }
+
+    protected void LateUpdate()
+    {
+        
     }
 }
