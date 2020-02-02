@@ -43,8 +43,10 @@ public class AI : MonoBehaviour
     public bool edible;
 
     [Header("Combat Settings")]
-    public int health = 15;
-    public int damage = 5;
+    public int health = 1;
+    public int damage = 1;
+
+    protected bool canMove = true;
 
     protected void Update()
     {
@@ -76,6 +78,7 @@ public class AI : MonoBehaviour
     public float fireCooldown = 2;
 
     public bool readyToFire = true;
+    public float pauseAfterFire = .5f;
     protected bool alignedWithTarget = false;
 
     // Indicates if object is firing
@@ -98,6 +101,7 @@ public class AI : MonoBehaviour
                 {
                     EnemyProjectile projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = Vector2.down;
+                    StartCoroutine("PauseMovement");
                     StartCoroutine("StartFireCooldown");
                     readyToFire = false;
                 }
@@ -112,6 +116,7 @@ public class AI : MonoBehaviour
                     projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = new Vector2(.5f, -.707f);
                     readyToFire = false;
+                    StartCoroutine("PauseMovement");
                     StartCoroutine("StartFireCooldown");
                 }
                 break;
@@ -164,6 +169,13 @@ public class AI : MonoBehaviour
         }
         isFiring = false;
         StartCoroutine("StartFireCooldown");
+    }
+
+    IEnumerator PauseMovement()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(pauseAfterFire);
+        canMove = true;
     }
 
     public void TakeDamage(int amount)
