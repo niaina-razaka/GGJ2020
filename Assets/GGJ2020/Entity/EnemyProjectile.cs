@@ -34,8 +34,10 @@ public class EnemyProjectile : MonoBehaviour
         StartCoroutine("StartLifetimeCooldown");
 
         int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int enemyProjectileLayer = LayerMask.NameToLayer("EnemyProjectile");
         int environmentLayer = LayerMask.NameToLayer("Environment");
         Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyProjectileLayer);
         Physics2D.IgnoreLayerCollision(gameObject.layer, environmentLayer);
     }
 
