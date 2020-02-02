@@ -274,9 +274,10 @@ MonoBehaviour:
   audioSource: {fileID: 1193261137}
   clipBoss: {fileID: 8300000, guid: 418c7b4dbb7c83149a108761b564f18f, type: 3}
   clipLevel: {fileID: 8300000, guid: aba78e89fec00fa458a0552e61775cc9, type: 3}
+  clipGameOver: {fileID: 0}
   audios:
   - name: shoot
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
 --- !u!1 &463460464
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,10 +8,14 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clipBoss;
     public AudioClip clipLevel;
+    public AudioClip clipGameOver;
     public List<MyAudio> audios = new List<MyAudio>();
+
+    public static AudioManager Instance { get; private set; }
 
     private void Start()
     {
+        Instance = this;
         SwitchToLevel();
     }
 
@@ -51,5 +55,11 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.clip = clipLevel;
         audioSource.Play();
+    }
+
+    public void Dead()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(clipGameOver);
     }
 }
