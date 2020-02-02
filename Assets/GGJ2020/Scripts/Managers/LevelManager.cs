@@ -25,8 +25,6 @@ public class LevelManager : GameManager
     public GameObject objDeadZone;
     public AI[] ai_normal;
     public AI[] ai_boss;
-    [HideInInspector] public List<WorldCube> cubes = new List<WorldCube>();
-    [HideInInspector] public List<AI> inGameAI = new List<AI>();
 
     public BlockMatrix blockMatrix = new BlockMatrix();
     public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
@@ -70,28 +68,12 @@ public class LevelManager : GameManager
         DeadZoneFollowPlayer();
     }
 
-    private void OnGUI()
+    new private void OnGUI()
     {
-        if (GUI.Button(new Rect(0, 0, 110, 25), "BONE"))
-        {
-            ChangeElement(HumanPart.BONE);
-        }
-        if (GUI.Button(new Rect(0, 25, 110, 25), "BLOOD_VESSEL"))
-        {
-            ChangeElement(HumanPart.BLOOD_VESSEL);
-        }
-        if (GUI.Button(new Rect(0, 50, 110, 25), "BRAIN"))
-        {
-            ChangeElement(HumanPart.BRAIN);
-        }
-        if (GUI.Button(new Rect(0, 75, 110, 25), "HEART"))
-        {
-            ChangeElement(HumanPart.HEART);
-        }
+        base.OnGUI();
         if (GUI.Button(new Rect(0, 110, 200, 25), "BOOS DEFEATED"))
         {
             BossDefeated();
-            //comment mety ve?
         }
     }
 
@@ -262,12 +244,6 @@ public class LevelManager : GameManager
             pos = new Vector3(startPos.x, elevation, 0);
         }
         startPos += new Vector3(blockSpacing * wallEndLevel[0].Length, 0, 0);
-    }
-
-    public void ChangeElement(HumanPart element)
-    {
-        humanPart = element;
-        //StartCoroutine(DynamicAnimateCubes(humanPart));
     }
 
     IEnumerator DynamicAnimateCubes(HumanPart element)
