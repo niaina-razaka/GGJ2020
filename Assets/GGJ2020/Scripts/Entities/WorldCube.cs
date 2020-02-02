@@ -9,6 +9,8 @@ public class WorldCube : MonoBehaviour
     public GameObject BRAIN;
     public GameObject HEART;
 
+    public bool AnimateOnInstantiate = true;
+
     private float duration = 0.25f;
 
     public GameManager.HumanPart Element {
@@ -17,10 +19,6 @@ public class WorldCube : MonoBehaviour
         {
             lastElement = _element;
             _element = value;
-            /*BONE.SetActive(_element == GameManager.HumanPart.BONE);
-            BLOOD_VESSEL.SetActive(_element == GameManager.HumanPart.BLOOD_VESSEL);
-            BRAIN.SetActive(_element == GameManager.HumanPart.BRAIN);
-            HEART.SetActive(_element == GameManager.HumanPart.HEART);//*/
         }
     }
     private GameManager.HumanPart _element;
@@ -29,7 +27,15 @@ public class WorldCube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Animate());
+        if(AnimateOnInstantiate)
+            StartCoroutine(Animate());
+        else
+        {
+            BONE.SetActive(_element == GameManager.HumanPart.BONE);
+            BLOOD_VESSEL.SetActive(_element == GameManager.HumanPart.BLOOD_VESSEL);
+            BRAIN.SetActive(_element == GameManager.HumanPart.BRAIN);
+            HEART.SetActive(_element == GameManager.HumanPart.HEART);
+        }
     }
 
     IEnumerator Animate()
