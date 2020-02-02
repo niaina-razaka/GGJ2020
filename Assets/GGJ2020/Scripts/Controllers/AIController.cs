@@ -89,11 +89,14 @@ public class AIController : AI
                     CheckMaxDistanceReached();
                     if (target != null)
                     {
-                        MoveTo(target.position, true);
+                            MoveTo(target.position, true, false);
                     }
                     else
                     {
-                        CheckEdge(position);
+                        if (!CheckEdge(position))
+                        {
+                            ChangeDirection();
+                        }
                         rb.velocity = new Vector2(direction * moveSpeed, 0);
                     }
                 }
@@ -130,7 +133,7 @@ public class AIController : AI
             CheckMaxDistanceReached();
             if (target != null)
             {
-                MoveTo(target.position, false);
+                MoveTo(target.position, false, true);
             }
             else
             {
@@ -140,8 +143,18 @@ public class AIController : AI
     }
 
     // For moving towards/above the player (uniform movements only)
-    void MoveTo(Vector2 destination, bool withPhysics)
+    void MoveTo(Vector2 destination, bool withPhysics, bool airborne)
     {
+        if (!airborne)
+        {
+            bool edge = CheckEdge(transform.position);
+            print(edge);
+            if (!edge)
+            {
+                print("tsy izy");
+                return;
+            }
+        }
         if(Vector2.Distance(transform.position, new Vector2(destination.x, transform.position.y)) > .05f){
             alignedWithTarget = false;
             if((destination.x - transform.position.x > 0 && !isFacingRight) || (destination.x - transform.position.x < 0 && isFacingRight))
@@ -221,13 +234,14 @@ public class AIController : AI
     public float edgeCheckLength;
 
 
-    void CheckEdge(Vector2 position)
+    bool CheckEdge(Vector2 position)
     {
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(position.x + edgeCheckPosition.x * direction, (transform.position.y + edgeCheckPosition.y)), Vector2.down, edgeCheckLength, environmentLayers);
         if (!hit)
         {
-            ChangeDirection();
+            return false;
         }
+        return true;
     }
     #endregion
 
