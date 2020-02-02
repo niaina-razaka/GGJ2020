@@ -34,9 +34,9 @@ public class AIController : AI
     CapsuleCollider2D capsule;
     float capsuleWidth;
 
-    void Start()
+    new void Start()
     {
-        //base.Start();
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         capsule = GetComponent<CapsuleCollider2D>();
         capsuleWidth = capsule.bounds.size.x;
@@ -77,7 +77,7 @@ public class AIController : AI
     void Update()
     {
         base.Update();
-
+        print("lol");
         if (!canMove)
         {
             return;

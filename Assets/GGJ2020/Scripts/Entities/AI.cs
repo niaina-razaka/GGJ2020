@@ -45,8 +45,15 @@ public class AI : MonoBehaviour
     [Header("Combat Settings")]
     public int health = 1;
     public int damage = 1;
+    [HideInInspector]
+    public int currentHealth;
 
     protected bool canMove = true;
+
+    protected void Start()
+    {
+        currentHealth = health;
+    }
 
     protected void Update()
     {
@@ -180,8 +187,8 @@ public class AI : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        health -= amount;
-        if (health <= 0)
+        currentHealth -= amount;
+        if (currentHealth <= 0)
         {
             GameManager.Instance.KillEnemy(this);
             Destroy(gameObject);
