@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class AIController : AI
 {
     // If object is facing right or left
@@ -14,6 +15,8 @@ public class AIController : AI
 
     // 1 if going right, -1 if going left
     int direction = 1;
+
+    public float checkFrontValue = .1f;
 
     [Space(10)]
     [Header("Ground Check Settings")]
@@ -28,11 +31,15 @@ public class AIController : AI
     bool grounded = false;
 
     Rigidbody2D rb;
+    CapsuleCollider2D capsule;
+    float capsuleWidth;
 
     void Start()
     {
         //base.Start();
         rb = GetComponent<Rigidbody2D>();
+        capsule = GetComponent<CapsuleCollider2D>();
+        capsuleWidth = capsule.bounds.size.x;
         gravityValue = Mathf.Abs(Physics2D.gravity.y);
         if (isFacingRight)
         {
@@ -93,7 +100,7 @@ public class AIController : AI
                     }
                     else
                     {
-                        if (!CheckEdge(position))
+                        if (!CheckEdge(position) || CheckFront(position))
                         {
                             ChangeDirection();
                         }
@@ -147,11 +154,8 @@ public class AIController : AI
     {
         if (!airborne)
         {
-            bool edge = CheckEdge(transform.position);
-            print(edge);
-            if (!edge)
+            if (!CheckEdge(transform.position) || CheckFront(transform.position))
             {
-                print("tsy izy");
                 return;
             }
         }
@@ -192,6 +196,17 @@ public class AIController : AI
         }
     }
 
+    bool CheckFront(Vector2 position)
+    {
+        Vector2 origin = position + Vector2.right * direction * capsuleWidth / 2;
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * direction, checkFrontValue, environmentLayers);
+        if (hit)
+        {
+            return true;
+        }
+        return false;
+    }
+
     // Refrains object from changing direction too fast when max patrolling distance is reached
     IEnumerator StartDirectionChangeCountdown()
     {
@@ -222,7 +237,9 @@ public class AIController : AI
         {
 
         }
-
+        Gizmos.color = Color.cyan;
+        Vector2 frontOrigin = (Vector2)transform.position + Vector2.right * direction * capsuleWidth / 2;
+        Gizmos.DrawLine(frontOrigin, frontOrigin + Vector2.right * direction * checkFrontValue);
     }
 
     // Ground patrol AI movements
@@ -291,6 +308,12 @@ public class AIController : AI
         }
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + jumpValues.x * direction, (transform.position.y + nextDestinationCheckYPosition)), Vector2.down, nextDestinationCheckLength, environmentLayers);
         if (!hit)
+        {
+            ChangeDirection();
+        }
+        Vector2 origin = (Vector2)transform.position + Vector2.right * direction * capsuleWidth / 2;
+        hit = Physics2D.Raycast(origin, Vector2.right * direction, jumpValues.x, environmentLayers);
+        if (hit)
         {
             ChangeDirection();
         }
