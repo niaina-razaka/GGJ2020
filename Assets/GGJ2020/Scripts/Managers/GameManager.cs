@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
         HEART
     }
 
+    public static GameManager Instance { get; private set; }
+
     [Header("Game Manager")]
     public HumanPart humanPart = HumanPart.BONE;
     public Player playerPrefab;
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        Instance = this;
         //init player
         playerInstance = Instantiate(playerPrefab);
         playerInstance.name = "HAFA";
@@ -41,17 +44,7 @@ public class GameManager : MonoBehaviour
         cinemachine.Follow = playerInstance.transform;
 
         //init background
-        switch (humanPart)
-        {
-            case HumanPart.BRAIN:
-                break;
-            case HumanPart.BLOOD_VESSEL:
-                break;
-            case HumanPart.BONE:
-                break;
-            case HumanPart.HEART:
-                break;
-        }
+        ChangeElement(humanPart);
     }
 
     // Update is called once per frame
@@ -71,6 +64,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("END GAME");
+        AudioManager.Instance.PlaySound("game over");
     }
 
     protected void OnGUI()

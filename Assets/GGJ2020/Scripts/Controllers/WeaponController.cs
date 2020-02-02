@@ -39,11 +39,11 @@ public class WeaponController : MonoBehaviour
 
         if (timeBtWShots <= 0)
         {
-           if (Input.GetMouseButton(1))
-          //  if (Input.GetKeyDown(KeyCode.Space))
+           if (Input.GetMouseButton(0))
             {
                 Instantiate(projectile, shotPoint.position, transform.rotation);
                 timeBtWShots = startTimeBtwShots;
+                AudioManager.Instance.PlaySound("shoot");
             }
         }
         else
