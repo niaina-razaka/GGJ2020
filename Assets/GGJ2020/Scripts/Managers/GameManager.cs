@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public List<WorldCube> cubes = new List<WorldCube>();
     [HideInInspector] public List<AI> inGameAI = new List<AI>();
 
-    public GameObject boss = null;
+    public AI boss = null;
 
     public int targetEnemyKilled = 2;
     public int targetEnemyKilledIncremetation = 10;
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     internal void KillEnemy(AI target)
     {
         LevelManager lvl = (LevelManager)GameManager.Instance;
-        if (boss != null && target == boss.GetComponent<AI>())
+        if (boss != null && target == boss)
         {
             AudioManager.Instance.SwitchToLevel();
             lvl.destroyFarBlocks = true;
