@@ -19,14 +19,7 @@ public class Boss2 : MonoBehaviour
     {
         if (controller.currentHealth <= controller.health / 2)
         {
-            if (controller.currentHealth <= controller.health / 4)
-            {
-                controller.fireType = AI.FireType.Auto;
-            }
-            else
-            {
-                controller.fireType = AI.FireType.Triple;
-            }
+            controller.fireType = AI.FireType.Triple;
         }
         lifeBar.fillAmount = (float)((double)controller.currentHealth / (double)controller.health);
     }

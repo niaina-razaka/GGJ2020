@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyProjectile : MonoBehaviour
 {
+    public enum TargetHealth { Normal, Owner}
+    public TargetHealth targetHealth;
     public enum Type { Normal, Mayhem}
     // Projectile speed
     public float speed = 3;
@@ -53,8 +55,17 @@ public class EnemyProjectile : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            PlayerController player = collider.GetComponent<PlayerController>();
-            player.TakeDamage(damage);
+            if(targetHealth == TargetHealth.Normal)
+            {
+                print("owner");
+                PlayerController player = collider.GetComponent<PlayerController>();
+                player.TakeDamage(damage);
+            }
+            if(targetHealth == TargetHealth.Owner)
+            {
+                print("owner");
+                owner.GetComponent<AI>().TakeDamage(damage);
+            }
         }
         StopCoroutine("StartLifetimeCooldown");
         Destroy(gameObject);
