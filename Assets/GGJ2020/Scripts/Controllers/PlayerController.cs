@@ -8,9 +8,17 @@ public class PlayerController : Player
 
     public float runSpeed = 40f;
 
+    public SpriteRenderer spriteRenderer;
+
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+
+    void Start()
+    {
+        base.Start();
+        controller = GetComponent<PlayerMovement>();
+    }
 
     // Update is called once per frame
     void Update()
