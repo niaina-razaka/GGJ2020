@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1275994193472942122}
   - component: {fileID: 1275994193472942125}
-  - component: {fileID: 7069197763924066621}
-  - component: {fileID: 3987951801957286733}
+  - component: {fileID: 4945576341887699286}
+  - component: {fileID: 8583550728049374431}
   m_Layer: 0
   m_Name: ProjectilePlayer
   m_TagString: Untagged
@@ -53,10 +53,8 @@ MonoBehaviour:
   target:
     serializedVersion: 2
     m_Bits: 1591
-  destroyEffect: {fileID: 279146551024889207, guid: b2292dce5336a1945a514701f300bad4,
-    type: 3}
   effectDestroy: {fileID: 0}
---- !u!58 &7069197763924066621
+--- !u!58 &4945576341887699286
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,7 +70,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &3987951801957286733
+--- !u!50 &8583550728049374431
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

@@ -14,16 +14,16 @@ public class BossFight1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(projectile[0], transform.position, Quaternion.identity);
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Instantiate(projectile[1], transform.position, Quaternion.identity);
 
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             Instantiate(projectile[2], transform.position, Quaternion.identity);
 
