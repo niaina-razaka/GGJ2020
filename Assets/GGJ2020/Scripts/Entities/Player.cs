@@ -55,7 +55,6 @@ public class Player: MonoBehaviour
     {
         while (true)
         {
-            print("test");
             yield return new WaitForSeconds(.1f);
             Color tmp = playerController.spriteRenderer.color;
             float alpha = (tmp.a == 0) ? 255 : 0;

@@ -77,7 +77,6 @@ public class AIController : AI
     void Update()
     {
         base.Update();
-        print("lol");
         if (!canMove)
         {
             return;
