@@ -41,17 +41,7 @@ public class GameManager : MonoBehaviour
         cinemachine.Follow = playerInstance.transform;
 
         //init background
-        switch (humanPart)
-        {
-            case HumanPart.BRAIN:
-                break;
-            case HumanPart.BLOOD_VESSEL:
-                break;
-            case HumanPart.BONE:
-                break;
-            case HumanPart.HEART:
-                break;
-        }
+        ChangeElement(humanPart);
     }
 
     // Update is called once per frame
