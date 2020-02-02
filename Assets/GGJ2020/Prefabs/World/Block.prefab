@@ -339,7 +339,7 @@ GameObject:
   m_Layer: 9
   m_Name: Block
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -453,3 +453,4 @@ MonoBehaviour:
   BLOOD_VESSEL: {fileID: 2215765674332728442}
   BRAIN: {fileID: 2215765674634643714}
   HEART: {fileID: 2215765674975212191}
+  AnimateOnInstantiate: 0

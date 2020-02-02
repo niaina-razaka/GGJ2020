@@ -70,8 +70,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c1b1cd2fdfc28ce438103b1f59cd6489, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Sprite: {fileID: 21300000, guid: 59522f9dd15a75b4792ad5477bf3b663, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -339,7 +339,7 @@ GameObject:
   m_Layer: 0
   m_Name: BlockInvisible
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -453,3 +453,4 @@ MonoBehaviour:
   BLOOD_VESSEL: {fileID: 2215765674332728442}
   BRAIN: {fileID: 2215765674634643714}
   HEART: {fileID: 2215765674975212191}
+  AnimateOnInstantiate: 0

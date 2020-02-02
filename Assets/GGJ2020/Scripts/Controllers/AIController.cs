@@ -71,6 +71,11 @@ public class AIController : AI
     {
         base.Update();
 
+        if (!canMove)
+        {
+            return;
+        }
+
         Vector2 position = transform.position;
         // If object is a ground unit
         if(type != Type.FlyingPatrol)

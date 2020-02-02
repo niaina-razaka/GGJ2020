@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc425e983a1b1d48b457e32b0021940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialScene: LevelDesign
+  initialScene: GGJ_GAME
   btnPlay: {fileID: 25770552}
   progressBar: {fileID: 447910131}
   lblStory: {fileID: 706563252}
@@ -1271,6 +1271,7 @@ MonoBehaviour:
   shakeAmount: 0.1
   speed: 0
   shake: 0
+  manualControl: 0
 --- !u!50 &2145671965
 Rigidbody2D:
   serializedVersion: 4
