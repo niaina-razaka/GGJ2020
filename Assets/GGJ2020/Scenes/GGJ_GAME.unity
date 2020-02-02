@@ -305,7 +305,9 @@ MonoBehaviour:
   bg_brain: {fileID: 2072640424}
   cubes: []
   inGameAI: []
+  boss: {fileID: 0}
   targetEnemyKilled: 1
+  targetEnemyKilledIncremetation: 10
   currentEnemyKilled: 0
   animationDelay: 0.02
   blockSpacing: 1.28
@@ -328,7 +330,12 @@ MonoBehaviour:
   objDeadZone: {fileID: 2803068816929748948}
   ai_normal:
   - {fileID: 4667876226404004645, guid: 1dcc23eaafb3b4744a49532bf272f55a, type: 3}
-  ai_boss: []
+  ai_boss:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  destroyFarBlocks: 1
 --- !u!4 &355645784
 Transform:
   m_ObjectHideFlags: 0
