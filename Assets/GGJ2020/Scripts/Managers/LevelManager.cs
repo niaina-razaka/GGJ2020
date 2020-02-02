@@ -23,7 +23,10 @@ public class LevelManager : GameManager
     public WorldCube prefabBlockInvisible;
     public WorldCube prefabBlockFake;
     public GameObject objDeadZone;
-    [HideInInspector] public List<WorldCube> cubes;
+    public AI[] ai_normal;
+    public AI[] ai_boss;
+    [HideInInspector] public List<WorldCube> cubes = new List<WorldCube>();
+    [HideInInspector] public List<AI> inGameAI = new List<AI>();
 
     public BlockMatrix blockMatrix = new BlockMatrix();
     public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
@@ -48,7 +51,6 @@ public class LevelManager : GameManager
     new private void Start()
     {
         base.Start();
-        cubes = FindObjectsOfType<WorldCube>().ToList();
         startPos = startBlock.transform.position;
         Blocks = blockMatrix.Blocks.ToList();
         Blocks.AddRange(blockMatrix0.Blocks);
@@ -197,6 +199,10 @@ public class LevelManager : GameManager
                     case -2:
                         InstantiateBlock(ref pos, prefabBlockFake, true);
                         break;
+                    //popEnemy
+                    case 5:
+                        PopEnemy(pos, true);
+                        break;
                 }
             }
             elevation += blockSpacing;
@@ -216,6 +222,22 @@ public class LevelManager : GameManager
         if (standardSpacing)
         {
             pos += new Vector3(blockSpacing, 0, 0);
+        }
+    }
+
+    private void PopEnemy(Vector3 pos, bool normal)
+    {
+        int rand = Random.Range(1, 100);
+        if (rand <= enemySpawnPercentage)
+        {
+            if (normal)
+            {
+                int rand_range = Random.Range(0, ai_normal.Length);
+                AI clone = Instantiate(ai_normal[rand_range]);
+                clone.transform.position = pos;
+                clone.transform.localScale = Vector3.one;
+                inGameAI.Add(clone);
+            }
         }
     }
 

@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public Player playerPrefab;
     public Transform spawnPlayer;
     public CinemachineVirtualCamera cinemachine;
+    [Range(1,100)]
+    public int enemySpawnPercentage = 100;
 
     protected Player playerInstance;
 
@@ -45,5 +47,10 @@ public class GameManager : MonoBehaviour
     protected void LateUpdate()
     {
         
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("END GAME");
     }
 }

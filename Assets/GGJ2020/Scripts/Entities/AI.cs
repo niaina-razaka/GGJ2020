@@ -18,7 +18,7 @@ public class AI : MonoBehaviour
     protected Vector2 spawningPoint;
 
     // Maximum patrolling distance from spawning point
-    public float maxPatrolDistance = 5;
+    public Vector2 maxPatrolDistance = new Vector2(5, 10);
 
     // If object has just reached max distance
     protected bool maxDistanceReached = false;
@@ -51,7 +51,7 @@ public class AI : MonoBehaviour
     protected void Update()
     {
         target = null;
-        Collider2D hit = Physics2D.OverlapBox(spawningPoint, new Vector2((maxPatrolDistance - margin) * 2, 10), 0, playerLayer);
+        Collider2D hit = Physics2D.OverlapBox(spawningPoint, new Vector2((maxPatrolDistance.x - margin) * 2, maxPatrolDistance.y), 0, playerLayer);
         if (hit)
         {
             target = hit.transform;
@@ -65,7 +65,7 @@ public class AI : MonoBehaviour
     protected void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(spawningPoint, new Vector2((maxPatrolDistance - margin) * 2, 10));
+        Gizmos.DrawWireCube(spawningPoint, new Vector2((maxPatrolDistance.x - margin) * 2, maxPatrolDistance.y));
         Gizmos.color = Color.red;
         if (target != null)
             Gizmos.DrawLine(transform.position, target.position);
