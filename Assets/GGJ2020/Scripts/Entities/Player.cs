@@ -23,6 +23,8 @@ public class Player: MonoBehaviour
     public void TakeDamage(int amount)
     {
         Life -= amount;
+        //GameObject.FindGameObjectWithTag("CM").GetComponent<SimpleCameraShakeInCinemachine>().Shake();
+
         if (invincibility)
         {
             StartCoroutine("ActivateInvincibility");
@@ -37,12 +39,16 @@ public class Player: MonoBehaviour
     {
         StartCoroutine("InvincibleAnimation");
         int enemyLayer = LayerMask.NameToLayer("Enemy");
+        Time.timeScale = 0.1F;
         Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer);
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1F;
         yield return new WaitForSeconds(invincibilityTime);
-
+        
         Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, false);
         StopCoroutine("InvincibleAnimation");
         ChangeSpriteAlpha(255);
+        
     }
 
     IEnumerator InvincibleAnimation()
@@ -83,6 +89,4 @@ public class Player: MonoBehaviour
         AudioManager.Instance.PlaySound("dead");
         GameManager.Instance.EndGame();
     }
-
-
 }
