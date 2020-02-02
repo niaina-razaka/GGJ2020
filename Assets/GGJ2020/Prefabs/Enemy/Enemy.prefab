@@ -214,6 +214,7 @@ MonoBehaviour:
   pauseAfterFire: 0.5
   isFacingRight: 1
   moveSpeed: 1
+  checkFrontValue: 0.1
   environmentLayers:
     serializedVersion: 2
     m_Bits: 528
