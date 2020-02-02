@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTmeBtwSpawn: 2
   enemies:
-  - {fileID: 5158142554019707641, guid: 72e444894e8c55f46a47db730a9fe083, type: 3}
-  - {fileID: 6252169035778613169, guid: 7ca9b5c68f09ce94195a44df4e31a8fb, type: 3}
-  - {fileID: 3026015878652061444, guid: 489d16a790345534b990f24d758ab8dc, type: 3}
+  - {fileID: 5030692552972996227, guid: e00466ed7af2aee40a4d832b4b8f3dbc, type: 3}
+  - {fileID: 3854453462921337864, guid: c630fad7062cbe54f91120bb58b5cdeb, type: 3}
+  - {fileID: 8909075033207418335, guid: aea7889a5f96007439deef06cf58145f, type: 3}

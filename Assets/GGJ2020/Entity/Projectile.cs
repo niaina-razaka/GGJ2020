@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public float distance;
     public int damage;    
     public LayerMask target;
+    public GameObject destroyEffect;
     GameObject player;
     GameObject weapon;
     public GameObject effectDestroy;
@@ -43,14 +44,17 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        print("collider");
         if (collider.CompareTag("Player") || collider.CompareTag("PlayerProjectile"))
         {
             return;
         }
         if (collider.CompareTag("Enemy"))
         {
+            print("Enemy");
             collider.GetComponent<AI>().TakeDamage(damage);
         }
+        Instantiate(destroyEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
