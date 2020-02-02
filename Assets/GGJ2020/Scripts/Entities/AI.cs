@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -37,10 +36,18 @@ public class AI : MonoBehaviour
     public Transform mayhemProjectileSpawnPoint;
 
     // Projectile prefab
-    public GameObject projectilePrefab;
+    public GameObject[] projectilePrefabs;
+
+    // Probability of each projectile
+    public float[] projectileProbabilities;
+
+    // Current projectile
+    GameObject currentProjectile;
 
     // Indicates if object is edible or not
     public bool edible;
+
+    public GameObject destroyEffect;
 
     [Header("Combat Settings")]
     public int health = 1;
@@ -50,9 +57,32 @@ public class AI : MonoBehaviour
 
     protected bool canMove = true;
 
+    float[,] probabilities;
+
     protected void Start()
     {
         currentHealth = health;
+        currentProjectile = projectilePrefabs[0];
+        float totalProbability = 0;
+        for(int i = 0; i < projectilePrefabs.Length; i++)
+        {
+            totalProbability += projectileProbabilities[i];
+        }
+        if(totalProbability != 100)
+        {
+            throw new System.Exception("Probability is not 100%");
+        }
+
+        probabilities = new float[projectileProbabilities.Length, 2];
+        float start = 0;
+        for(int j = 0; j < projectileProbabilities.Length; j++)
+        {
+            float end = start + projectileProbabilities[j] / 100;
+            probabilities[j, 0] = start;
+            probabilities[j, 1] = end;
+            start += end;
+            print(probabilities[j, 0] + " ... " + probabilities[j, 1]);
+        }
     }
 
     protected void Update()
@@ -106,8 +136,10 @@ public class AI : MonoBehaviour
             case (FireType.Single):
                 if (alignedWithTarget && readyToFire)
                 {
-                    EnemyProjectile projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                    SelectNewProjectile();
+                    EnemyProjectile projectile = GameObject.Instantiate(currentProjectile, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = Vector2.down;
+                    projectile.owner = gameObject;
                     StartCoroutine("PauseMovement");
                     StartCoroutine("StartFireCooldown");
                     readyToFire = false;
@@ -116,12 +148,18 @@ public class AI : MonoBehaviour
             case (FireType.Triple):
                 if (readyToFire)
                 {
-                    EnemyProjectile projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                    SelectNewProjectile();
+                    EnemyProjectile projectile = GameObject.Instantiate(currentProjectile, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = Vector2.down;
-                    projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                    projectile.owner = gameObject;
+                    SelectNewProjectile();
+                    projectile = GameObject.Instantiate(currentProjectile, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = new Vector2(-.5f, -.707f);
-                    projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                    projectile.owner = gameObject;
+                    SelectNewProjectile();
+                    projectile = GameObject.Instantiate(currentProjectile, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = new Vector2(.5f, -.707f);
+                    projectile.owner = gameObject;
                     readyToFire = false;
                     StartCoroutine("PauseMovement");
                     StartCoroutine("StartFireCooldown");
@@ -144,14 +182,30 @@ public class AI : MonoBehaviour
         }
     }
 
+    void SelectNewProjectile()
+    {
+        float value = Random.value;
+        for(int i = 0; i < projectileProbabilities.Length; i++)
+        {
+            if (value >= probabilities[i, 0] && value < probabilities[i, 1])
+            {
+                currentProjectile = projectilePrefabs[i];
+                return;
+            }
+        }
+        currentProjectile = projectilePrefabs[0];
+    }
+
     IEnumerator FireAuto()
     {
         isFiring = true;
         float angle = Mathf.PI / 9;
         for(int i = 1; i < 9; i++)
         {
-            EnemyProjectile projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+            SelectNewProjectile();
+            EnemyProjectile projectile = GameObject.Instantiate(currentProjectile, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
             projectile.direction = new Vector2(Mathf.Cos(Mathf.PI + i * angle), Mathf.Sin(Mathf.PI + i * angle));
+            projectile.owner = gameObject;
             yield return new WaitForSeconds(.25f);
         }
         isFiring = false;
@@ -165,7 +219,10 @@ public class AI : MonoBehaviour
         float angle = Mathf.PI / 9;
         for (int i = 0; i < 30; i++)
         {
-            Rigidbody2D projectile = GameObject.Instantiate(projectilePrefab, mayhemProjectileSpawnPoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            SelectNewProjectile();
+            Rigidbody2D projectile = GameObject.Instantiate(currentProjectile, mayhemProjectileSpawnPoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
+            enemyProjectile.owner = gameObject;
             projectile.bodyType = RigidbodyType2D.Dynamic;
             projectile.gravityScale = .5f;
             projectile.GetComponent<EnemyProjectile>().type = EnemyProjectile.Type.Mayhem;
@@ -190,6 +247,8 @@ public class AI : MonoBehaviour
         if (currentHealth <= 0)
         {
             GameManager.Instance.KillEnemy(this);
+            if(destroyEffect)
+                Instantiate(destroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

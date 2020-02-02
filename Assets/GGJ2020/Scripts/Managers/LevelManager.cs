@@ -192,8 +192,9 @@ public class LevelManager : GameManager
                     //pop boss on matrix 44
                     AI b = Instantiate(ai_boss[indexBoss]);
                     b.transform.position = pos;
-                    b.transform.localScale = new Vector3(2.0942f, 2.0942f, 1);
+                    b.transform.localScale = Vector3.one;
                     boss = b;
+                    UIManager.Instance.bossLifeBar.gameObject.SetActive(true);
                     pos += new Vector3(blockSpacing, 0, 0);
                     indexBoss++;
                 }
