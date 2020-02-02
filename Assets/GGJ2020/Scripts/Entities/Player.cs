@@ -80,6 +80,8 @@ public class Player: MonoBehaviour
     void Kill()
     {
         gameObject.SetActive(false);
+        AudioManager.Instance.PlaySound("dead");
+        GameManager.Instance.EndGame();
     }
 
 

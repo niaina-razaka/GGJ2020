@@ -278,6 +278,12 @@ MonoBehaviour:
   audios:
   - name: shoot
     clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
+  - name: game over
+    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
+  - name: hited
+    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
+  - name: footstep
+    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
 --- !u!1 &463460464
 GameObject:
   m_ObjectHideFlags: 0

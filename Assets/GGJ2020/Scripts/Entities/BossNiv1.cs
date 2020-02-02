@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BossNiv1 : MonoBehaviour
 {
     public Slider healthBar;
-    private int life=10;
+    public int life=10;
     private int maxHealth;
 
     // Start is called before the first frame update
