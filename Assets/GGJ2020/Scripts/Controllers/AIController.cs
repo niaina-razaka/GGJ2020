@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -34,9 +34,9 @@ public class AIController : AI
     CapsuleCollider2D capsule;
     float capsuleWidth;
 
-    void Start()
+    new void Start()
     {
-        //base.Start();
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         capsule = GetComponent<CapsuleCollider2D>();
         capsuleWidth = capsule.bounds.size.x;
@@ -77,7 +77,6 @@ public class AIController : AI
     void Update()
     {
         base.Update();
-
         if (!canMove)
         {
             return;
@@ -159,16 +158,21 @@ public class AIController : AI
                 return;
             }
         }
-        if(Vector2.Distance(transform.position, new Vector2(destination.x, transform.position.y)) > .05f){
+        if(Vector2.Distance(transform.position, new Vector2(destination.x, transform.position.y)) > .05f)
+        {
             alignedWithTarget = false;
             if((destination.x - transform.position.x > 0 && !isFacingRight) || (destination.x - transform.position.x < 0 && isFacingRight))
             {
                 ChangeDirection();
             }
-            if(withPhysics)
+            if (withPhysics)
+            {
                 rb.velocity = new Vector2(direction * moveSpeed, 0);
+            }
             else
+            {
                 transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            }
         }
         else
         {

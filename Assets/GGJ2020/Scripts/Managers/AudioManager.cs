@@ -21,10 +21,10 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        /*if (Input.GetKeyDown(KeyCode.R))
         {
             SwitchToBoss();
-        }
+        }//*/
     }
 
     [Serializable]
@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void Dead()
+    public void GameOver()
     {
         audioSource.Stop();
         audioSource.PlayOneShot(clipGameOver);

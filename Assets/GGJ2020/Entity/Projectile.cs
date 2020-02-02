@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public float distance;
     public int damage;    
     public LayerMask target;
+    public GameObject destroyEffect;
     GameObject player;
     GameObject weapon;
     public GameObject effectDestroy;
@@ -25,12 +26,15 @@ public class Projectile : MonoBehaviour
         Invoke("DestroyProjectile", lifeTime);
         if(effectDestroy != null)
             Instantiate(effectDestroy, transform.position, Quaternion.identity);
+
+
+        int enemyProjectileLayer = LayerMask.NameToLayer("EnemyProjectile");
+        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyProjectileLayer);
     }
     void DestroyProjectile()
     {
         //audioManager.GetComponent<AudioManager>().Play("Choc");
         //cam.Shake();
-        print("Destroy");
         Destroy(gameObject);
         // Destroy(effectDestroy);
     }
@@ -50,6 +54,10 @@ public class Projectile : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             collider.GetComponent<AI>().TakeDamage(damage);
+        }
+        if (destroyEffect != null)
+        {
+            Instantiate(destroyEffect, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
     }
