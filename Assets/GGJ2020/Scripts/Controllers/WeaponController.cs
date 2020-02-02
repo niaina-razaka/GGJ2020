@@ -43,6 +43,7 @@ public class WeaponController : MonoBehaviour
             {
                 Instantiate(projectile, shotPoint.position, transform.rotation);
                 timeBtWShots = startTimeBtwShots;
+                AudioManager.Instance.PlaySound("shoot");
             }
         }
         else

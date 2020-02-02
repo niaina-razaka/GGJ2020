@@ -21,5 +21,9 @@ public class Spawner : MonoBehaviour
         {
             tmeBtwSpawn -= Time.deltaTime;
         }
+        if(GameObject.FindGameObjectWithTag("Boss").GetComponent<BossNiv1>().life == 5)
+        {
+            GameObject.FindGameObjectWithTag("Boss").GetComponent<Spawner>().startTmeBtwSpawn = 0.5f;
+        }
     }
 }
