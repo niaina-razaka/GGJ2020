@@ -14,7 +14,7 @@ public class PlayerController : Player
     bool jump = false;
     bool crouch = false;
 
-    void Start()
+    new void Start()
     {
         base.Start();
         controller = GetComponent<PlayerMovement>();
@@ -35,6 +35,10 @@ public class PlayerController : Player
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
+            if (controller.Grounded)
+            {
+                AudioManager.Instance.PlaySound("jump");
+            }
         }
 
         //if (Input.GetButtonDown("Crouch"))
@@ -54,5 +58,11 @@ public class PlayerController : Player
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
-   
+
+    void PlayFootStep()
+    {
+        if(horizontalMove != 0 && controller.Grounded)
+        AudioManager.Instance.PlaySound("footstep");
+    }
+
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class LevelManager : GameManager
     public WorldCube prefabBlock;
     public WorldCube prefabBlockInvisible;
     public WorldCube prefabBlockFake;
+    public GameObject blockBossEnd;
     public GameObject objDeadZone;
     public AI[] ai_normal;
     public AI[] ai_boss;
@@ -29,8 +31,10 @@ public class LevelManager : GameManager
     public BlockMatrix blockMatrix = new BlockMatrix();
     public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
 
+    [HideInInspector] public bool destroyFarBlocks = true;
     private Vector3 startPos;
     private Vector3 dz_Pos;
+    private int indexBoss = 0;
     private List<int[]> wallEndLevel = new List<int[]>()
         {
             new int[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -43,7 +47,16 @@ public class LevelManager : GameManager
             new int[]{ 0, 0, 0, 1, 1, 0, 0, 0, 0 },
             new int[]{ 0, 0, 0, 1, 1, 0, 0, 0, 0 }
         };
-
+    private List<int[]> bossLevel = new List<int[]>()
+        {
+            new int[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            new int[]{ 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1 },
+            new int[]{ 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            new int[]{ 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 88 },
+            new int[]{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            new int[]{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+            new int[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }    //mila asina boss 44
+        };
     private List<List<int[]>> Blocks;
 
     new private void Start()
@@ -106,7 +119,7 @@ public class LevelManager : GameManager
         foreach (WorldCube c in cubes)
         {
             float distance = Vector2.Distance(c.transform.position, endBlock.position);
-            if (distance >= blockDistanceDestroyer)
+            if (distance >= blockDistanceDestroyer && destroyFarBlocks)
             {
                 cubes.Remove(c);
                 DestroyImmediate(c.gameObject);
@@ -138,7 +151,7 @@ public class LevelManager : GameManager
                 clone.transform.parent = parentBlocks;
                 clone.transform.position = startPos;
                 cubes.Add(clone);
-                if (Random.value >= highBlockPercent)
+                if (UnityEngine.Random.value >= highBlockPercent)
                 {
                     WorldCube u_clone = Instantiate(prefabBlock);
                     u_clone.Element = humanPart;
@@ -157,9 +170,50 @@ public class LevelManager : GameManager
         }
     }
 
+    internal void PopBossTerrain()
+    {
+        destroyFarBlocks = false;
+        Vector3 pos = new Vector3(startPos.x, startPos.y, startPos.z);
+        float elevation = 0;
+        for (int i = 0; i < bossLevel.Count; i++)
+        {
+            for (int j = 0; j < bossLevel[i].Length; j++)
+            {
+                if (bossLevel[i][j] == 0)
+                {
+                    pos += new Vector3(blockSpacing, 0, 0);
+                }
+                else if (bossLevel[i][j] == 1)
+                {
+                    InstantiateBlock(ref pos, prefabBlock, true);
+                }
+                else if (bossLevel[i][j] == 44)
+                {
+                    //pop boss on matrix 44
+                    AI b = Instantiate(ai_boss[indexBoss]);
+                    b.transform.position = pos;
+                    b.transform.localScale = Vector3.one;
+                    boss = b;
+                    UIManager.Instance.bossLifeBar.gameObject.SetActive(true);
+                    pos += new Vector3(blockSpacing, 0, 0);
+                    indexBoss++;
+                }
+                else if (bossLevel[i][j] == 88)  //pop block boss
+                {
+                    blockBossEnd.SetActive(true);
+                    blockBossEnd.transform.position = pos;
+                    pos += new Vector3(blockSpacing, 0, 0);
+                }
+            }
+            elevation += blockSpacing;
+            pos = new Vector3(startPos.x, elevation, 0);
+        }
+        startPos += new Vector3(blockSpacing * bossLevel[0].Length, 0, 0);
+    }
+
     private void PopBlock()
     {
-        int random = Random.Range(0, Blocks.Count);
+        int random = UnityEngine.Random.Range(0, Blocks.Count);
         List<int[]> matrix = Blocks[random];
         Vector3 pos = new Vector3(startPos.x, startPos.y, startPos.z);
         float elevation = 0;
@@ -209,12 +263,12 @@ public class LevelManager : GameManager
 
     private void PopEnemy(Vector3 pos, bool normal)
     {
-        int rand = Random.Range(1, 100);
+        int rand = UnityEngine.Random.Range(1, 100);
         if (rand <= enemySpawnPercentage)
         {
             if (normal)
             {
-                int rand_range = Random.Range(0, ai_normal.Length);
+                int rand_range = UnityEngine.Random.Range(0, ai_normal.Length);
                 AI clone = Instantiate(ai_normal[rand_range]);
                 clone.transform.position = pos;
                 clone.transform.localScale = Vector3.one;

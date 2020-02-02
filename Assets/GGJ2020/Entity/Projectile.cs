@@ -26,12 +26,15 @@ public class Projectile : MonoBehaviour
         Invoke("DestroyProjectile", lifeTime);
         if(effectDestroy != null)
             Instantiate(effectDestroy, transform.position, Quaternion.identity);
+
+
+        int enemyProjectileLayer = LayerMask.NameToLayer("EnemyProjectile");
+        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyProjectileLayer);
     }
     void DestroyProjectile()
     {
         //audioManager.GetComponent<AudioManager>().Play("Choc");
         //cam.Shake();
-        print("Destroy");
         Destroy(gameObject);
         // Destroy(effectDestroy);
     }
@@ -44,17 +47,18 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        print("collider");
         if (collider.CompareTag("Player") || collider.CompareTag("PlayerProjectile"))
         {
             return;
         }
         if (collider.CompareTag("Enemy"))
         {
-            print("Enemy");
             collider.GetComponent<AI>().TakeDamage(damage);
         }
-        Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        if (destroyEffect != null)
+        {
+            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

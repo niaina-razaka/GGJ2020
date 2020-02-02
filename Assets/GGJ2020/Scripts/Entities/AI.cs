@@ -45,8 +45,15 @@ public class AI : MonoBehaviour
     [Header("Combat Settings")]
     public int health = 1;
     public int damage = 1;
+    //[HideInInspector]
+    public int currentHealth;
 
     protected bool canMove = true;
+
+    protected void Start()
+    {
+        currentHealth = health;
+    }
 
     protected void Update()
     {
@@ -163,7 +170,6 @@ public class AI : MonoBehaviour
             projectile.gravityScale = .5f;
             projectile.GetComponent<EnemyProjectile>().type = EnemyProjectile.Type.Mayhem;
             int direction = (Random.value < .5f) ? -1 : 1;
-            print(direction);
             projectile.AddForce(new Vector2(Random.value * direction, Random.value) * 3, ForceMode2D.Impulse);
             yield return new WaitForSeconds(.075f);
         }
@@ -180,9 +186,10 @@ public class AI : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        health -= amount;
-        if (health <= 0)
+        currentHealth -= amount;
+        if (currentHealth <= 0)
         {
+            GameManager.Instance.KillEnemy(this);
             Destroy(gameObject);
         }
     }

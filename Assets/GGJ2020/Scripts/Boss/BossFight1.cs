@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossFight1 : MonoBehaviour
 {
     public GameObject[] projectile;
+    public Transform shotpoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,16 +17,16 @@ public class BossFight1 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(projectile[0], transform.position, Quaternion.identity);
+            Instantiate(projectile[0], shotpoint.position, Quaternion.identity);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Instantiate(projectile[1], transform.position, Quaternion.identity);
+            Instantiate(projectile[1], shotpoint.position, Quaternion.identity);
 
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Instantiate(projectile[2], transform.position, Quaternion.identity);
+            Instantiate(projectile[2], shotpoint.position, Quaternion.identity);
 
         }
     }
