@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,12 @@ public class GameManager : MonoBehaviour
     public Transform bg_brain;
     [HideInInspector] public List<WorldCube> cubes = new List<WorldCube>();
     [HideInInspector] public List<AI> inGameAI = new List<AI>();
+
+    public GameObject boss = null;
+
+    public int targetEnemyKilled = 2;
+    public int targetEnemyKilledIncremetation = 10;
+    public int currentEnemyKilled = 0;
 
     protected Player playerInstance;
 
@@ -64,6 +71,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("END GAME");
+        AudioManager.Instance.GameOver();
         AudioManager.Instance.PlaySound("game over");
     }
 
@@ -94,5 +102,34 @@ public class GameManager : MonoBehaviour
         bg_bone.gameObject.SetActive(humanPart == HumanPart.BONE);
         bg_brain.gameObject.SetActive(humanPart == HumanPart.BRAIN);
         bg_heart.gameObject.SetActive(humanPart == HumanPart.HEART);
+    }
+
+    internal void KillEnemy(AI target)
+    {
+        LevelManager lvl = (LevelManager)GameManager.Instance;
+        if (boss != null && target == boss.GetComponent<AI>())
+        {
+            AudioManager.Instance.SwitchToLevel();
+            lvl.destroyFarBlocks = true;
+            lvl.blockBossEnd.SetActive(false);
+            targetEnemyKilled += targetEnemyKilledIncremetation;
+            Debug.LogWarning("Animation interface boss killed");
+        }
+        else
+        {
+            currentEnemyKilled++;
+            inGameAI.Remove(target);
+            if (currentEnemyKilled >= targetEnemyKilled)
+            {
+                currentEnemyKilled = 0;
+                AudioManager.Instance.SwitchToBoss();
+                lvl.PopBossTerrain();
+                foreach (AI ai in inGameAI)
+                {
+                    Destroy(ai);
+                }
+                inGameAI.Clear();
+            }
+        }
     }
 }

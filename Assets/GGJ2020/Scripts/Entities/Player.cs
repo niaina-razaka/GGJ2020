@@ -83,6 +83,4 @@ public class Player: MonoBehaviour
         AudioManager.Instance.PlaySound("dead");
         GameManager.Instance.EndGame();
     }
-
-
 }

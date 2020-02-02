@@ -183,6 +183,7 @@ public class AI : MonoBehaviour
         health -= amount;
         if (health <= 0)
         {
+            GameManager.Instance.KillEnemy(this);
             Destroy(gameObject);
         }
     }

@@ -149,6 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1804304928}
+  - {fileID: 358483603}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -182,6 +183,86 @@ Transform:
   m_Father: {fileID: 1193261135}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &249853257
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 12700550}
+    m_Modifications:
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999547226704152976, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_Name
+      value: BlockBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999547226704152976, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999547226704152976, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 09aa87dc68e2a88448f18a82594ee0f5, type: 3}
 --- !u!1 &355645782
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +305,8 @@ MonoBehaviour:
   bg_brain: {fileID: 2072640424}
   cubes: []
   inGameAI: []
+  targetEnemyKilled: 1
+  currentEnemyKilled: 0
   animationDelay: 0.02
   blockSpacing: 1.28
   highBlockPercent: 0.797
@@ -241,6 +324,7 @@ MonoBehaviour:
     type: 3}
   prefabBlockFake: {fileID: 2215765675251405477, guid: f9db68ece06a3e04d8ed26f7c0b6d25c,
     type: 3}
+  blockBossEnd: {fileID: 358483600}
   objDeadZone: {fileID: 2803068816929748948}
   ai_normal:
   - {fileID: 4667876226404004645, guid: 1dcc23eaafb3b4744a49532bf272f55a, type: 3}
@@ -274,16 +358,30 @@ MonoBehaviour:
   audioSource: {fileID: 1193261137}
   clipBoss: {fileID: 8300000, guid: 418c7b4dbb7c83149a108761b564f18f, type: 3}
   clipLevel: {fileID: 8300000, guid: aba78e89fec00fa458a0552e61775cc9, type: 3}
-  clipGameOver: {fileID: 0}
+  clipGameOver: {fileID: 8300000, guid: 33ff797efd56fb54794cdf55a9cf9218, type: 3}
   audios:
   - name: shoot
     clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
   - name: game over
-    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
-  - name: hited
-    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
+    clip: {fileID: 8300000, guid: 6a3048f785199c543aed69cb2bb0db4f, type: 3}
+  - name: dead
+    clip: {fileID: 8300000, guid: 33ff797efd56fb54794cdf55a9cf9218, type: 3}
   - name: footstep
-    clip: {fileID: 8300000, guid: eb9d3a7644d4d13489b378c6822a5c3c, type: 3}
+    clip: {fileID: 8300000, guid: 4ad8dd0334f8c0941a07f1dd1499bae4, type: 3}
+  - name: jump
+    clip: {fileID: 8300000, guid: 858e5a6db901e344b8c229d1eec84cb9, type: 3}
+--- !u!1 &358483600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8999547226704152976, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 249853257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &358483603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5155458455054983797, guid: 09aa87dc68e2a88448f18a82594ee0f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 249853257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &463460464
 GameObject:
   m_ObjectHideFlags: 0
