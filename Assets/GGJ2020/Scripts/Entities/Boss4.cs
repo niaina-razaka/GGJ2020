@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AIController))]
 public class Boss4 : MonoBehaviour
 {
     AIController controller;
+    Image lifeBar;
 
     void Start()
     {
         controller = GetComponent<AIController>();
+        lifeBar = FindObjectOfType<UIManager>().bossLifeBar;
     }
 
     void Update()
@@ -32,5 +35,6 @@ public class Boss4 : MonoBehaviour
                 controller.fireType = AI.FireType.Triple;
             }
         }
+        lifeBar.fillAmount = controller.currentHealth / controller.health;
     }
 }
