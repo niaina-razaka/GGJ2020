@@ -84,6 +84,7 @@ public class Player: MonoBehaviour
 
     void Kill()
     {
+        Time.timeScale = 1F;
         gameObject.SetActive(false);
         AudioManager.Instance.PlaySound("dead");
         GameManager.Instance.EndGame();
