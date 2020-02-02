@@ -16,7 +16,14 @@ public class PlayerController : Player
     void Update()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-       
+        if (horizontalMove != 0)
+        {
+            gameObject.GetComponent<Animator>().SetBool("isRunning", true);
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().SetBool("isRunning", false);
+        }
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;

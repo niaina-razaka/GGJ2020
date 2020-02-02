@@ -32,6 +32,11 @@ public class EnemyProjectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine("StartLifetimeCooldown");
+
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int environmentLayer = LayerMask.NameToLayer("Environment");
+        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, environmentLayer);
     }
 
     void Update()
@@ -44,9 +49,10 @@ public class EnemyProjectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyProjectile"))
+        if (collider.CompareTag("Player"))
         {
-            return;
+            PlayerController player = collider.GetComponent<PlayerController>();
+            player.TakeDamage(damage);
         }
         StopCoroutine("StartLifetimeCooldown");
         Destroy(gameObject);
@@ -57,8 +63,5 @@ public class EnemyProjectile : MonoBehaviour
         yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }
-
-
-
 
 }

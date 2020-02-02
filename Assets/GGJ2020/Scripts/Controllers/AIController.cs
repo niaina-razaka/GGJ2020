@@ -71,6 +71,11 @@ public class AIController : AI
     {
         base.Update();
 
+        if (!canMove)
+        {
+            return;
+        }
+
         Vector2 position = transform.position;
         // If object is a ground unit
         if(type != Type.FlyingPatrol)
@@ -166,7 +171,7 @@ public class AIController : AI
     // Checks if max patrol distance is reached (works on uniform movement types only)
     void CheckMaxDistanceReached()
     {
-        if (Mathf.Abs(transform.position.x - spawningPoint.x) >= maxPatrolDistance && !maxDistanceReached)
+        if (Mathf.Abs(transform.position.x - spawningPoint.x) >= maxPatrolDistance.x && !maxDistanceReached)
         {
             ChangeDirection();
             maxDistanceReached = true;
@@ -266,7 +271,7 @@ public class AIController : AI
 
     void checkNextDestination()
     {
-        if(Mathf.Abs((spawningPoint.x - (transform.position.x + jumpValues.x * direction))) > maxPatrolDistance)
+        if(Mathf.Abs((spawningPoint.x - (transform.position.x + jumpValues.x * direction))) > maxPatrolDistance.x)
         {
             ChangeDirection();
         }

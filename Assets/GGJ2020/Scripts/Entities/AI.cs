@@ -18,7 +18,7 @@ public class AI : MonoBehaviour
     protected Vector2 spawningPoint;
 
     // Maximum patrolling distance from spawning point
-    public float maxPatrolDistance = 5;
+    public Vector2 maxPatrolDistance = new Vector2(5, 10);
 
     // If object has just reached max distance
     protected bool maxDistanceReached = false;
@@ -43,13 +43,15 @@ public class AI : MonoBehaviour
     public bool edible;
 
     [Header("Combat Settings")]
-    public int health = 15;
-    public int damage = 5;
+    public int health = 1;
+    public int damage = 1;
+
+    protected bool canMove = true;
 
     protected void Update()
     {
         target = null;
-        Collider2D hit = Physics2D.OverlapBox(spawningPoint, new Vector2((maxPatrolDistance - margin) * 2, 10), 0, playerLayer);
+        Collider2D hit = Physics2D.OverlapBox(spawningPoint, new Vector2((maxPatrolDistance.x - margin) * 2, maxPatrolDistance.y), 0, playerLayer);
         if (hit)
         {
             target = hit.transform;
@@ -63,7 +65,7 @@ public class AI : MonoBehaviour
     protected void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(spawningPoint, new Vector2((maxPatrolDistance - margin) * 2, 10));
+        Gizmos.DrawWireCube(spawningPoint, new Vector2((maxPatrolDistance.x - margin) * 2, maxPatrolDistance.y));
         Gizmos.color = Color.red;
         if (target != null)
             Gizmos.DrawLine(transform.position, target.position);
@@ -76,6 +78,7 @@ public class AI : MonoBehaviour
     public float fireCooldown = 2;
 
     public bool readyToFire = true;
+    public float pauseAfterFire = .5f;
     protected bool alignedWithTarget = false;
 
     // Indicates if object is firing
@@ -98,6 +101,7 @@ public class AI : MonoBehaviour
                 {
                     EnemyProjectile projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = Vector2.down;
+                    StartCoroutine("PauseMovement");
                     StartCoroutine("StartFireCooldown");
                     readyToFire = false;
                 }
@@ -112,6 +116,7 @@ public class AI : MonoBehaviour
                     projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<EnemyProjectile>();
                     projectile.direction = new Vector2(.5f, -.707f);
                     readyToFire = false;
+                    StartCoroutine("PauseMovement");
                     StartCoroutine("StartFireCooldown");
                 }
                 break;
@@ -164,6 +169,13 @@ public class AI : MonoBehaviour
         }
         isFiring = false;
         StartCoroutine("StartFireCooldown");
+    }
+
+    IEnumerator PauseMovement()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(pauseAfterFire);
+        canMove = true;
     }
 
     public void TakeDamage(int amount)
