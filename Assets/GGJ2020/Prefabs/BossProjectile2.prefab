@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3854453462921337878}
   - component: {fileID: 3854453462921337879}
+  - component: {fileID: -4576825629607094976}
+  - component: {fileID: 6060497882067211596}
   m_Layer: 0
   m_Name: BossProjectile2
   m_TagString: Triangle
@@ -25,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3854453462921337864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7946987, y: 4.047414, z: -3.693359}
+  m_LocalPosition: {x: -1.78, y: 4.047414, z: -3.693359}
   m_LocalScale: {x: 2.100576, y: 2.100576, z: 2.100576}
   m_Children:
   - {fileID: 3854453463252971845}
@@ -51,6 +53,48 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4576825629607094976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854453462921337864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe8a7a868f591948ae58bbfb20d7eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  floatingpoint: {fileID: 8073798486737127308, guid: e2e6140549dc4bf409325d12ca9f0922,
+    type: 3}
+  effect: {fileID: 8819629862493486050, guid: 9f5817368322896458fecfb569494d79, type: 3}
+--- !u!61 &6060497882067211596
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854453462921337864}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.9848519, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2169274, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &3854453463252971846
 GameObject:
   m_ObjectHideFlags: 0
