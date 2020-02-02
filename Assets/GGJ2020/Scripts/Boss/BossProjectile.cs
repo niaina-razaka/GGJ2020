@@ -35,7 +35,7 @@ public class BossProjectile : MonoBehaviour
             Destroy(gameObject);
 
         }
-        else if(!other.CompareTag("Player"))
+        else if(!other.CompareTag("Player") && !other.CompareTag("Platform"))
         {
             Debug.Log("Are you OK");
             GameObject floatingtext = Instantiate(floatingpoint, transform.position, Quaternion.identity) as GameObject;
