@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 2215765675251405476}
   - component: {fileID: 2215765675251405482}
   - component: {fileID: 2215765675251405477}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}

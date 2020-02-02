@@ -199,7 +199,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  maxPatrolDistance: 5
+  maxPatrolDistance: {x: 5, y: 1}
   target: {fileID: 0}
   projectileSpawnPoint: {fileID: 155029863}
   mayhemProjectileSpawnPoint: {fileID: 1489244342}
@@ -211,6 +211,7 @@ MonoBehaviour:
   fireType: 0
   fireCooldown: 2
   readyToFire: 1
+  pauseAfterFire: 0.5
   isFacingRight: 1
   moveSpeed: 1
   environmentLayers:
