@@ -307,7 +307,7 @@ MonoBehaviour:
   inGameAI: []
   boss: {fileID: 0}
   targetEnemyKilled: 1
-  targetEnemyKilledIncremetation: 10
+  targetEnemyKilledIncremetation: 0
   currentEnemyKilled: 0
   animationDelay: 0.02
   blockSpacing: 1.28
@@ -331,10 +331,10 @@ MonoBehaviour:
   ai_normal:
   - {fileID: 4667876226404004645, guid: 1dcc23eaafb3b4744a49532bf272f55a, type: 3}
   ai_boss:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1402362675, guid: 88bd6420c7feb20418ffcab5cbd0d414, type: 3}
+  - {fileID: 1402362675, guid: 88bd6420c7feb20418ffcab5cbd0d414, type: 3}
+  - {fileID: 1402362675, guid: 88bd6420c7feb20418ffcab5cbd0d414, type: 3}
+  - {fileID: 1402362675, guid: 88bd6420c7feb20418ffcab5cbd0d414, type: 3}
   destroyFarBlocks: 1
 --- !u!4 &355645784
 Transform:
@@ -376,7 +376,7 @@ MonoBehaviour:
   - name: footstep
     clip: {fileID: 8300000, guid: 4ad8dd0334f8c0941a07f1dd1499bae4, type: 3}
   - name: jump
-    clip: {fileID: 8300000, guid: 858e5a6db901e344b8c229d1eec84cb9, type: 3}
+    clip: {fileID: 8300000, guid: 17d67a0c6e5a6dd4fa5f515ea7ab7e91, type: 3}
 --- !u!1 &358483600 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8999547226704152976, guid: 09aa87dc68e2a88448f18a82594ee0f5,

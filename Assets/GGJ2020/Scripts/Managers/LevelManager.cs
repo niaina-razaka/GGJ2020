@@ -26,7 +26,7 @@ public class LevelManager : GameManager
     public GameObject blockBossEnd;
     public GameObject objDeadZone;
     public AI[] ai_normal;
-    public GameObject[] ai_boss;
+    public AI[] ai_boss;
 
     public BlockMatrix blockMatrix = new BlockMatrix();
     public BlockMatrix0 blockMatrix0 = new BlockMatrix0();
@@ -55,7 +55,7 @@ public class LevelManager : GameManager
             new int[]{ 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 88 },
             new int[]{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
             new int[]{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-            new int[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },    //mila asina boss 44
+            new int[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }    //mila asina boss 44
         };
     private List<List<int[]>> Blocks;
 
@@ -190,8 +190,10 @@ public class LevelManager : GameManager
                 else if (bossLevel[i][j] == 44)
                 {
                     //pop boss on matrix 44
-                    boss = Instantiate(ai_boss[indexBoss]);
-                    boss.transform.position = pos;
+                    AI b = Instantiate(ai_boss[indexBoss]);
+                    b.transform.position = pos;
+                    b.transform.localScale = new Vector3(2.0942f, 2.0942f, 1);
+                    boss = b;
                     pos += new Vector3(blockSpacing, 0, 0);
                     indexBoss++;
                 }
