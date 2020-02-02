@@ -406,9 +406,9 @@ MonoBehaviour:
   ai_normal:
   - {fileID: 4667876226404004645, guid: 1dcc23eaafb3b4744a49532bf272f55a, type: 3}
   ai_boss:
+  - {fileID: 2722594674904185658, guid: 393bc37440637cb4ba25d1ead076d176, type: 3}
   - {fileID: 2722594674904185658, guid: 12f69389d6b474e4e83884d823c3e461, type: 3}
-  - {fileID: 6558766387094591476, guid: c96c06dfcd6820243a44a8e97508a237, type: 3}
-  - {fileID: 6558766387094591476, guid: c96c06dfcd6820243a44a8e97508a237, type: 3}
+  - {fileID: 6801803355495112962, guid: b48f414741d89334d87fa0856c9c6730, type: 3}
   - {fileID: 6558766387094591476, guid: c96c06dfcd6820243a44a8e97508a237, type: 3}
   destroyFarBlocks: 1
 --- !u!4 &355645784

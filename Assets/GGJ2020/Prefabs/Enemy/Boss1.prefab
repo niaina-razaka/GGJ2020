@@ -106,11 +106,10 @@ MonoBehaviour:
   target: {fileID: 0}
   projectileSpawnPoint: {fileID: 7282102743068055928}
   mayhemProjectileSpawnPoint: {fileID: 7282102741743278249}
-  projectilePrefabs: []
-  projectileProbabilities: []
+  projectilePrefab: {fileID: 943156344880395319, guid: e2a691e76ed49bc479f0d69747ebecec,
+    type: 3}
   edible: 0
-  destroyEffect: {fileID: 0}
-  health: 10
+  health: 5
   damage: 1
   currentHealth: 0
   fireType: 0

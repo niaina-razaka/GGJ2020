@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene(0);
     }
-
+    /*
     protected void OnGUI()
     {
         if (GUI.Button(new Rect(0, 0, 110, 25), "BONE"))
@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
             ChangeElement(HumanPart.HEART);
         }
     }
+    //*/
 
     public void ChangeElement(HumanPart element)
     {

@@ -81,6 +81,7 @@ public class LevelManager : GameManager
         DeadZoneFollowPlayer();
     }
 
+    /*
     new private void OnGUI()
     {
         base.OnGUI();
@@ -89,6 +90,7 @@ public class LevelManager : GameManager
             BossDefeated();
         }
     }
+    //*/
 
     private void OnDrawGizmos()
     {
