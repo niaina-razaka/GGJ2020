@@ -42,6 +42,8 @@ public class AI : MonoBehaviour
     // Indicates if object is edible or not
     public bool edible;
 
+    public GameObject destroyEffect;
+
     [Header("Combat Settings")]
     public int health = 1;
     public int damage = 1;
@@ -190,6 +192,8 @@ public class AI : MonoBehaviour
         if (currentHealth <= 0)
         {
             GameManager.Instance.KillEnemy(this);
+            if(destroyEffect)
+                Instantiate(destroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

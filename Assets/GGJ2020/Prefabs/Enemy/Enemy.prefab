@@ -156,8 +156,11 @@ MonoBehaviour:
   projectilePrefab: {fileID: 943156344880395319, guid: e2a691e76ed49bc479f0d69747ebecec,
     type: 3}
   edible: 0
+  destroyEffect: {fileID: 148357501285085476, guid: 64d9991f60a853b40a282c0fa3614ca6,
+    type: 3}
   health: 1
   damage: 1
+  currentHealth: 0
   fireType: 0
   fireCooldown: 2
   readyToFire: 1

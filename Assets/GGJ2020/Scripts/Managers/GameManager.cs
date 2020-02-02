@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
                 lvl.PopBossTerrain();
                 foreach (AI ai in inGameAI)
                 {
-                    Destroy(ai);
+                    Destroy(ai.gameObject);
                 }
                 inGameAI.Clear();
             }

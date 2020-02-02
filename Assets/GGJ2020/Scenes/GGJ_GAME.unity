@@ -381,8 +381,8 @@ MonoBehaviour:
   inGameAI: []
   imgLoadScene: {fileID: 1747475030}
   boss: {fileID: 0}
-  targetEnemyKilled: 1
-  targetEnemyKilledIncremetation: 0
+  targetEnemyKilled: 5
+  targetEnemyKilledIncremetation: 5
   currentEnemyKilled: 0
   animationDelay: 0.02
   blockSpacing: 1.28
@@ -453,7 +453,7 @@ MonoBehaviour:
   - name: jump
     clip: {fileID: 8300000, guid: 17d67a0c6e5a6dd4fa5f515ea7ab7e91, type: 3}
   - name: boss_shoot
-    clip: {fileID: 8300000, guid: 17d67a0c6e5a6dd4fa5f515ea7ab7e91, type: 3}
+    clip: {fileID: 8300000, guid: 32659ce12458bc64481f75673e375bba, type: 3}
 --- !u!1 &358483600 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8999547226704152976, guid: 09aa87dc68e2a88448f18a82594ee0f5,
