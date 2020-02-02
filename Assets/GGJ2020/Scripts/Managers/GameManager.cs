@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     public Player playerPrefab;
     public Transform spawnPlayer;
     public CinemachineVirtualCamera cinemachine;
+    public UIManager ui;
     [Range(1,100)]
     public int enemySpawnPercentage = 100;
     public Transform bg_heart;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     public Transform bg_brain;
     [HideInInspector] public List<WorldCube> cubes = new List<WorldCube>();
     [HideInInspector] public List<AI> inGameAI = new List<AI>();
+    public Image imgLoadScene;
 
     public AI boss = null;
 
@@ -43,13 +46,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        imgLoadScene.gameObject.SetActive(false);
         Instance = this;
         //init player
         playerInstance = Instantiate(playerPrefab);
         playerInstance.name = "HAFA";
         playerInstance.transform.position = spawnPlayer.position;
         cinemachine.Follow = playerInstance.transform;
-
+        ui.player = playerInstance.gameObject;
         //init background
         ChangeElement(humanPart);
     }
@@ -73,6 +77,24 @@ public class GameManager : MonoBehaviour
         Debug.Log("END GAME");
         AudioManager.Instance.GameOver();
         AudioManager.Instance.PlaySound("game over");
+        Time.timeScale = 1F;
+        StartCoroutine(ToMainMenu());
+    }
+
+    IEnumerator ToMainMenu()
+    {
+        imgLoadScene.gameObject.SetActive(true);
+        Color transparent = Color.black;
+        transparent.a = 0;
+        imgLoadScene.color = transparent;
+        float t = 0;
+        while (t <= 5)
+        {
+            yield return new WaitForEndOfFrame();
+            t += Time.deltaTime;
+            imgLoadScene.color = Color.Lerp(transparent, Color.black, t/5);
+        }
+        SceneManager.LoadScene(0);
     }
 
     protected void OnGUI()
@@ -113,7 +135,23 @@ public class GameManager : MonoBehaviour
             lvl.destroyFarBlocks = true;
             lvl.blockBossEnd.SetActive(false);
             targetEnemyKilled += targetEnemyKilledIncremetation;
-            Debug.LogWarning("Animation interface boss killed");
+            //Debug.LogWarning("Animation interface boss killed");
+            UIManager.Instance.bossLifeBar.gameObject.SetActive(false);
+            switch (humanPart)
+            {
+                case HumanPart.BRAIN:
+                    ChangeElement(HumanPart.BLOOD_VESSEL);
+                    break;
+                case HumanPart.BLOOD_VESSEL:
+                    ChangeElement(HumanPart.BONE);
+                    break;
+                case HumanPart.BONE:
+                    ChangeElement(HumanPart.HEART);
+                    break;
+                case HumanPart.HEART:
+                    StartCoroutine(ToMainMenu());
+                    break;
+            }
         }
         else
         {
