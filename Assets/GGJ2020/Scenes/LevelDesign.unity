@@ -186,6 +186,7 @@ MonoBehaviour:
     type: 3}
   spawnPlayer: {fileID: 1864755427}
   cinemachine: {fileID: 91279986}
+  enemySpawnPercentage: 100
   animationDelay: 0.02
   blockSpacing: 1.28
   highBlockPercent: 0.797
@@ -203,8 +204,12 @@ MonoBehaviour:
     type: 3}
   prefabBlockFake: {fileID: 2215765675251405477, guid: f9db68ece06a3e04d8ed26f7c0b6d25c,
     type: 3}
-  objDeadZone: {fileID: 0}
+  objDeadZone: {fileID: 4439644103656016290, guid: f8fb42c31cc66964e879cf4e0624622a,
+    type: 3}
+  ai_normal: []
+  ai_boss: []
   cubes: []
+  inGameAI: []
 --- !u!4 &37778656
 Transform:
   m_ObjectHideFlags: 0
