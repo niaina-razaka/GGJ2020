@@ -132,17 +132,22 @@ public class AIController : AI
         }
         else if(type == Type.FlyingPatrol)
         {
+            print("test");
+            print(isFiring);
             if (isFiring)
             {
+                print("firing");
                 return;
             }
             CheckMaxDistanceReached();
             if (target != null)
             {
+                print("target");
                 MoveTo(target.position, false, true);
             }
             else
             {
+                print("move");
                 transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
             }
         }
@@ -153,21 +158,32 @@ public class AIController : AI
     {
         if (!airborne)
         {
+            print("not airborne");
             if (!CheckEdge(transform.position) || CheckFront(transform.position))
             {
                 return;
             }
         }
-        if(Vector2.Distance(transform.position, new Vector2(destination.x, transform.position.y)) > .05f){
+        if(Vector2.Distance(transform.position, new Vector2(destination.x, transform.position.y)) > .05f)
+        {
+            print("not aligned");
             alignedWithTarget = false;
             if((destination.x - transform.position.x > 0 && !isFacingRight) || (destination.x - transform.position.x < 0 && isFacingRight))
             {
+                print("change direction 2");
                 ChangeDirection();
             }
-            if(withPhysics)
+            if (withPhysics)
+            {
+                print("with Physics");
                 rb.velocity = new Vector2(direction * moveSpeed, 0);
+            }
             else
+            {
+                print("without Physics");
+                print(moveSpeed);
                 transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            }
         }
         else
         {
@@ -189,6 +205,7 @@ public class AIController : AI
     {
         if (Mathf.Abs(transform.position.x - spawningPoint.x) >= maxPatrolDistance.x && !maxDistanceReached)
         {
+            print("changeDirection");
             ChangeDirection();
             maxDistanceReached = true;
             StartCoroutine("StartDirectionChangeCountdown");
